@@ -1,0 +1,75 @@
+{% extends "/skeleton.html" %}
+
+
+{% block HEADERTAGS %}
+{{ h.stylesheet_tag('//cdn.muicss.com/mui-0.9.8/css/mui.min.css') }}
+{{ h.stylesheet_tag(h.static('style.css')) }}
+{{ h.javascript_tag(h.static('script.js')) }}
+<script>
+  window.addEventListener('load', function() {
+    loadjs('//cdn.muicss.com/mui-0.9.8/js/mui.min.js', 'mui');
+  });
+</script>
+
+{% endblock %}
+
+
+{% block HTML %}
+   <div id="sidedrawer" class="mui--no-user-select">
+      <div id="sidedrawer-brand" class="mui--appbar-line-height">
+        <span class="mui--text-title">Daspanel</span>
+      </div>
+      <div class="mui-divider"></div>
+      {% if g.user.is_authenticated: %}
+      <ul>
+        <li><a href="{{ url_for('content.home') }}"><strong>Home</strong></a></li>
+        <li><a href="{{ url_for('sites.home') }}"><strong>Sites</strong></a></li>
+        <li><a href="{{ url_for('module1.home') }}"><strong>Module1</strong></a></li>
+        <li><a href="{{ url_for('auth.create_account') }}"><strong>New User</strong></a></li>
+        <li><a href="{{ url_for('auth.logout') }}"><strong>Log out</strong></a></li>
+        <div class="mui-divider"></div>
+        <li><strong>{{ g.user.email }}</strong></li>
+      </ul>
+      
+      {% else: %}
+      <ul>
+        <li><a href="{{ url_for('auth.login') }}"><strong>Log in</strong></a></li>
+        <li><a href="{{ url_for('auth.create_account') }}"><strong>Sign up</strong></a></li>
+      </ul>
+      {% endif %}
+    </div>
+    {% with messages = get_flashed_messages(with_categories=true) -%}
+    {% if messages -%}
+    <div id="flash-wrapper">
+        <div class="mui--appbar-height"></div>
+        <div class="mui-col-xs-12"><br></div>
+        <div class="mui-col-xs-12">
+            {% for category, message in messages: %}
+                {% if category == 'error' %}
+                    <div class="mui-col-xs-12 mui-panel mui--bg-danger">
+                        {{ message }}
+                    </div>
+                {% elif category == 'warning' %}
+                    <div class="mui-col-xs-12 mui-panel mui--bg-accent-light">
+                        {{ message }}
+                    </div>
+                {% else: %}
+                    <div class="mui-col-xs-12 mui-panel mui--bg-primary-light">
+                        {{ message }}
+                    </div>
+
+                {% endif %}
+            {% endfor %}
+        </div>
+
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    {% block BODY %}{% endblock %}
+
+{% endblock %}
+
+
+
+

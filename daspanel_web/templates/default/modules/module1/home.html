@@ -1,0 +1,304 @@
+{% extends "/shared/base-layout.html" %}
+
+
+{% block BODY %}
+<header id="header">
+  <nav id="appbar" class="mui-container-fluid mui-appbar mui--bg-primary">
+  <table width="100%" cellspacing="0">
+    <tr class="mui--appbar-height">
+      <td>
+        <a id="appbar-sidenav-show" class="sidedrawer-toggle mui--visible-xs-inline-block mui--visible-sm-inline-block js-show-sidedrawer">☰</a>
+        <a id="appbar-sidenav-hide" class="sidedrawer-toggle mui--hidden-xs mui--hidden-sm js-hide-sidedrawer">☰</a>
+        <span class="mui--text-title">Module1</span>
+      </td>
+      <td class="mui--text-right">
+          <a id="appbar-more-vert" href="/module1"><i class="material-icons mui--text-title">refresh</i></a>
+          <a id="appbar-more-vert" href="https://github.com/muicss/mui"><i class="material-icons mui--text-title">add</i></a>
+
+        <div class="mui-dropdown">
+          <a id="appbar-more-vert" data-mui-toggle="dropdown"><i class="material-icons mui--text-title">more_vert</i></a>
+          <ul class="mui-dropdown__menu mui-dropdown__menu--right">
+            
+            <li><a href="/docs/v1/getting-started/introduction">Introduction</a></li>
+            <li><a href="/docs/v1/getting-started/roadmap">Roadmap</a></li>
+            <li><a href="/support">Support</a></li>
+            <li><a href="/feedback">Feedback</a></li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+  </table>
+</nav>
+</header>
+
+    <div id="content-wrapper">
+      <div class="mui--appbar-height"></div>
+      <div class="mui-container-fluid">
+
+    <div class="mui-row mui--z1">
+        {% for r in records %}
+        <div class="mui-col-xs-12 mui-col-sm-12 mui-col-md-6 mui-col-lg-6 mui-col-xl-4">
+  	<article class="cssui-usercard cssui-usercard_skin--material cssui-usercard_skin--material_mod--indigo">
+		<div class="cssui-usercard__body">
+			<header class="cssui-usercard__header">
+				<img src="{{ r.picture.thumbnail }}" class="cssui-usercard__avatar" alt="Avatar">
+				<div class="cssui-usercard__header-info">
+					<h3 class="cssui-usercard__name">{{ r.name.first }} <span class="cssui-usercard__name-label">{{ r.name.last }}</span></h3>
+					<span class="cssui-usercard__post">{{ r.id.value }}</span>
+				</div>
+			</header>
+			<div class="cssui-usercard__content">
+				<div class="cssui-slider cssui-slider_mod--horizontal">
+
+					<!-- the control elements of slider -->
+
+					<input id="slide{{loop.index}}_1" type="radio" class="cssui-slider__switch cssui-usercard__switch" name="slider-controls{{loop.index}}" checked autofocus>
+					<label for="slide{{loop.index}}_1" class="cssui-slider__control cssui-usercard__control"></label>
+					<input id="slide{{loop.index}}_2" type="radio" class="cssui-slider__switch cssui-usercard__switch" name="slider-controls{{loop.index}}">
+					<label for="slide{{loop.index}}_2" class="cssui-slider__control cssui-usercard__control"></label>
+					<input id="slide{{loop.index}}_3" type="radio" class="cssui-slider__switch cssui-usercard__switch" name="slider-controls{{loop.index}}">
+					<label for="slide{{loop.index}}_3" class="cssui-slider__control cssui-usercard__control"></label>
+					<input id="slide{{loop.index}}_4" type="radio" class="cssui-slider__switch cssui-usercard__switch" name="slider-controls{{loop.index}}">
+					<label for="slide{{loop.index}}_4" class="cssui-slider__control cssui-usercard__control"></label>
+					<input id="slide{{loop.index}}_5" type="radio" class="cssui-slider__switch cssui-usercard__switch" name="slider-controls{{loop.index}}">
+					<label for="slide{{loop.index}}_5" class="cssui-slider__control cssui-usercard__control"></label>
+
+					<div class="cssui-slider__slides">
+
+						<!-- first slide -->
+						<div class="cssui-slider__slide">
+							<h4 class="cssui-usercard__title">About me</h4>
+							<div class="cssui-usercard__stats">
+								<div class="cssui-stats cssui-usercard__stats-item">
+									<i class="cssui-icon icon-email"></i>
+									<div class="cssui-stats__info cssui-usercard__stats-info">
+										<span class="cssui-stats__name cssui-usercard__stats-name">Country</span>
+										<span class="cssui-stats__value">{{ r.nat }}</span>
+									</div>
+								</div>
+								<div class="cssui-stats cssui-usercard__stats-item">
+									<i class="cssui-icon icon-email"></i>
+									<div class="cssui-stats__info cssui-usercard__stats-info">
+										<span class="cssui-stats__name cssui-usercard__stats-name">City</span>
+										<span class="cssui-stats__value truncate">{{ r.location.city }}</span>
+									</div>
+								</div>
+								<div class="cssui-stats cssui-usercard__stats-item">
+									<i class="cssui-icon icon-calendar"></i>
+									<div class="cssui-stats__info cssui-usercard__stats-info">
+										<span class="cssui-stats__name cssui-usercard__stats-name">Date of birth</span>
+										<span class="cssui-stats__value truncate">{{ r.dob }}</span>
+									</div>
+								</div>
+								<div class="cssui-stats cssui-usercard__stats-item">
+									<i class="cssui-icon icon-man-woman"></i>
+									<div class="cssui-stats__info cssui-usercard__stats-info">
+										<span class="cssui-stats__name cssui-usercard__stats-name">Gender</span>
+										<span class="cssui-stats__value">{{ r.gender }}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+                        <!-- EOF first slide -->
+
+						<!-- second slide -->
+						<div class="cssui-slider__slide">
+							<h4 class="cssui-usercard__title">My Skills</h4>
+							<div class="cssui-usercard__stats">
+								<div class="cssui-stats cssui-usercard__stats-item">
+									<i class="cssui-icon icon-html"></i>
+									<div class="cssui-stats__info cssui-usercard__stats-info">
+										<span class="cssui-stats__name cssui-usercard__stats-name">HTML</span>
+										<span class="cssui-stats__value">85%</span>
+									</div>
+								</div>
+								<div class="cssui-stats cssui-usercard__stats-item">
+									<i class="cssui-icon icon-vue"></i>
+									<div class="cssui-stats__info cssui-usercard__stats-info">
+										<span class="cssui-stats__name cssui-usercard__stats-name">VUE</span>
+										<span class="cssui-stats__value">90%</span>
+									</div>
+								</div>
+								<div class="cssui-stats cssui-usercard__stats-item">
+									<i class="cssui-icon icon-angular"></i>
+									<div class="cssui-stats__info cssui-usercard__stats-info">
+										<span class="cssui-stats__name cssui-usercard__stats-name">AngularJS</span>
+										<span class="cssui-stats__value">70%</span>
+									</div>
+								</div>
+								<div class="cssui-stats cssui-usercard__stats-item">
+									<i class="cssui-icon icon-js"></i>
+									<div class="cssui-stats__info cssui-usercard__stats-info">
+										<span class="cssui-stats__name cssui-usercard__stats-name">NodeJS</span>
+										<span class="cssui-stats__value">82%</span>
+									</div>
+								</div>
+							</div>
+						</div>
+                        <!-- EOF second slide -->
+
+						<!-- third slide -->
+						<div class="cssui-slider__slide">
+							<h4 class="cssui-usercard__title">My Contacts</h4>
+							<div class="cssui-usercard__stats">
+								<div class="cssui-stats cssui-usercard__stats-item">
+									<i class="cssui-icon icon-email"></i>
+									<div class="cssui-stats__info cssui-usercard__stats-info">
+										<span class="cssui-stats__name cssui-usercard__stats-name">E-mail</span>
+										<a href="#0" class="cssui-stats__value truncate">{{ r.email }}</a>
+									</div>
+								</div>
+								<div class="cssui-stats cssui-usercard__stats-item">
+									<i class="cssui-icon icon-phone"></i>
+									<div class="cssui-stats__info cssui-usercard__stats-info">
+										<span class="cssui-stats__name cssui-usercard__stats-name">Phone</span>
+										<a href="tel:79000000000" class="cssui-stats__value">7-900-000-00-00</a>
+									</div>
+								</div>
+								<div class="cssui-stats cssui-usercard__stats-item">
+									<i class="cssui-icon icon-whatsapp"></i>
+									<div class="cssui-stats__info cssui-usercard__stats-info">
+										<span class="cssui-stats__name cssui-usercard__stats-name">WhatsApp</span>
+										<span class="cssui-stats__value">+7 000 000-00-00</span>
+									</div>
+								</div>
+								<div class="cssui-stats cssui-usercard__stats-item">
+									<i class="cssui-icon icon-skype"></i>
+									<div class="cssui-stats__info cssui-usercard__stats-info">
+										<span class="cssui-stats__name cssui-usercard__stats-name">Skype</span>
+										<span class="cssui-stats__value truncate">username</span>
+									</div>
+								</div>
+							</div>
+						</div>
+                        <!-- EOF third slide -->
+
+						<!-- fourth slide -->
+						<div class="cssui-slider__slide">
+							<h4 class="cssui-usercard__title">List</h4>
+                            <div class="mui-container-fluid">
+                                <div class="mui-row">
+                                    <div class="mui-col-md-12 mui--text-center">
+                                        <button class="mui-btn mui-btn--raised mui-btn--primary">Manage</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="mui-container-fluid">
+                                <div class="mui-row">
+                                    <div class="mui-col-md-4">Title 1</div>
+                                    <div class="mui-col-md-8">Item content 1</div>
+                                </div>
+                                <div class="mui-divider"></div>
+                                <div class="mui-row">
+                                    <div class="mui-col-md-4">Title 2</div>
+                                    <div class="mui-col-md-8">Item content 2</div>
+                                </div>
+                                <div class="mui-divider"></div>
+                                <div class="mui-row">
+                                    <div class="mui-col-md-4">Title 3</div>
+                                    <div class="mui-col-md-8 truncate">Item content with a very very very much very long content</div>
+                                </div>
+                                <div class="mui-divider"></div>
+                            </div>
+						</div>
+                        <!-- EOF fourth slide -->
+
+						<!-- fifth slide -->
+						<div class="cssui-slider__slide">
+							<h4 class="cssui-usercard__title">Static Data</h4>
+                            <div class="mui-container-fluid">
+                                <div class="mui-row">
+                                    <div class="mui-col-md-12">
+                                        <div class="mui--text-dark-secondary mui--text-caption">Name</div>
+                                        <div class="mui--text-dark mui--text-body1">{{ r.name.first }} {{ r.name.last }}</div>
+                                    </div>
+                                </div>
+                                <br>
+
+                                <div class="mui-row">
+                                    <div class="mui-col-md-12">
+                                        <div class="mui--text-dark-secondary mui--text-caption">Email</div>
+                                        <div class="mui--text-dark mui--text-body1">{{ r.email }}</div>
+                                        <br>
+                                    </div>
+                                </div>
+
+                                <div class="mui-divider"></div>
+                                <div class="mui-row">
+                                    <div class="mui-col-md-6">
+                                        <div class="mui--text-dark-secondary mui--text-caption">Street</div>
+                                        <div class="mui--text-dark mui--text-body1">{{ r.location.street }}</div>
+                                    </div>
+                                    <div class="mui-col-md-6">
+                                        <div class="mui--text-dark-secondary mui--text-caption">City</div>
+                                        <div class="mui--text-dark mui--text-body1">{{ r.location.city }}</div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="mui-row">
+                                    <div class="mui-col-md-4">
+                                        <div class="mui--text-dark-secondary mui--text-caption">Post Code</div>
+                                        <div class="mui--text-dark mui--text-body1">{{ r.location.postcode }}</div>
+                                    </div>
+                                    <div class="mui-col-md-4">
+                                        <div class="mui--text-dark-secondary mui--text-caption">State</div>
+                                        <div class="mui--text-dark mui--text-body1">{{ r.location.state }}</div>
+                                    </div>
+                                    <div class="mui-col-md-4">
+                                        <div class="mui--text-dark-secondary mui--text-caption">Country</div>
+                                        <div class="mui--text-dark mui--text-body1">{{ r.nat }}</div>
+                                    </div>
+                                </div>
+                                <div class="mui-divider"></div>
+                                <br>
+
+                                <div class="mui-row">
+                                    <div class="mui-col-md-12">
+                                        <div class="mui--text-dark-secondary mui--text-caption">Phone</div>
+                                        <div class="mui--text-dark mui--text-body1">{{ r.phone }}</div>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+                        <!-- EOF fourth slide -->
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer class="cssui-usercard__footer">
+            <div>
+                <button class="mui-btn mui-btn--small mui-btn--flat">Edit</button>
+                <button class="mui-btn mui-btn--small mui-btn--primary mui-btn--flat">Clone</button>
+                <button class="mui-btn mui-btn--small mui-btn--danger mui-btn--flat">Delete</button>
+            </div>
+            <!--
+			<a href="#0" class="cssui-social cssui-usercard__social">
+				<i class="cssui-icon icon-twitter"></i>
+				<span class="cssui-social__name">twitter</span>
+			</a>
+			<a href="#0" class="cssui-social cssui-usercard__social">
+				<i class="cssui-icon icon-linkedin"></i>
+				<span class="cssui-social__name">linkedin</span>
+			</a>
+			<a href="#0" class="cssui-social cssui-usercard__social">
+				<i class="cssui-icon icon-codepen"></i>
+				<span class="cssui-social__name">codepen</span>
+			</a>
+            -->
+		</footer>
+	</article>        
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+</div>
+{% endblock %}
+
+
+
+

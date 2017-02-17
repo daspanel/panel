@@ -1,0 +1,66 @@
+{% extends "/shared/modal-layout.html" %}
+
+
+{% block HEADERTAGS %}
+{{ super() }} 
+<style>
+  .mui-panel {
+    max-width: 500px;
+  }
+</style>
+{% endblock %}
+
+
+{% block BODY %}
+<div class="mui-panel">
+  <form method="post" action="{{ url_for('sites.content_fromhttp', recid=recid) }}" role="form">
+    <legend>From remote ZIP file</legend>
+    {{ form.csrf_token }} 
+    <div class="mui-select">
+      {{ form.version(placeholder=form.version.description,
+                    autofocus="true") }} 
+      <label>{{ form.version.label.text }}</label>
+      {% if form.version.errors -%}
+        <div class="mui--text-danger">{{ form.version.errors[0] }}</div>
+      {%- endif %}
+    </div>
+    <br><br>
+    <div class="mui-select">
+      {{ form.auth_type(placeholder=form.auth_type.description) }} 
+      <label>{{ form.auth_type.label.text }}</label>
+      {% if form.auth_type.errors -%}
+        <div class="mui--text-danger">{{ form.auth_type.errors[0] }}</div>
+      {%- endif %}
+    </div>
+    <div class="mui-textfield">
+      {{ form.user(placeholder=form.user.description, spellcheck="false") }}
+      <label>{{ form.user.label.text }}</label>
+      {% if form.user.errors -%}
+        <div class="mui--text-danger">{{ form.user.errors[0] }}</div>
+      {%- endif %}
+    </div>
+    <div class="mui-textfield">
+      {{ form.password(placeholder=form.password.description, spellcheck="false") }}
+      <label>{{ form.password.label.text }}</label>
+      {% if form.password.errors -%}
+      <div class="mui--text-danger">{{ form.password.errors[0] }}</div>
+      {%- endif %}
+    </div>
+    <div class="mui-textfield">
+      {{ form.url(placeholder=form.url.description, spellcheck="false") }}
+      <label>{{ form.url.label.text }}</label>
+      {% if form.url.errors -%}
+      <div class="mui--text-danger">{{ form.url.errors[0] }}</div>
+      {%- endif %}
+    </div>
+    <div class="mui-textfield">
+      {{ form.directory(placeholder=form.directory.description, spellcheck="false") }}
+      <label>{{ form.directory.label.text }}</label>
+      {% if form.directory.errors -%}
+      <div class="mui--text-danger">{{ form.directory.errors[0] }}</div>
+      {%- endif %}
+    </div>
+    <button type="submit" class="mui-btn mui-btn--primary">Upload Content</button>
+  </form>
+</div>
+{% endblock %}

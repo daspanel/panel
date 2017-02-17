@@ -1,0 +1,44 @@
+{% extends "/shared/modal-layout.html" %}
+
+
+{% block HEADERTAGS %}
+{{ super() }} 
+<style>
+  .mui-panel {
+    max-width: 500px;
+  }
+</style>
+{% endblock %}
+
+
+{% block BODY %}
+<div class="mui-panel">
+  <form method="post" action="{{ url_for('sites.new', **request.args) }}" role="form">
+    <legend>Create a new site</legend>
+    {{ form.csrf_token }} 
+    <div class="mui-textfield">
+      {{ form.sitedescription(placeholder=form.sitedescription.description,
+                    autofocus="true") }} 
+      <label>{{ form.sitedescription.label.text }}</label>
+      {% if form.sitedescription.errors -%}
+        <div class="mui--text-danger">{{ form.sitedescription.errors[0] }}</div>
+      {%- endif %}
+    </div>
+    <div class="mui-select">
+      {{ form.sitetype(placeholder=form.sitetype.description, spellcheck="false") }}
+      <label>{{ form.sitetype.label.text }}</label>
+      {% if form.sitetype.errors -%}
+        <div class="mui--text-danger">{{ form.sitetype.errors[0] }}</div>
+      {%- endif %}
+    </div>
+    <div class="mui-select">
+      {{ form.runtime(placeholder=form.runtime.description, spellcheck="false") }}
+      <label>{{ form.runtime.label.text }}</label>
+      {% if form.runtime.errors -%}
+      <div class="mui--text-danger">{{ form.runtime.errors[0] }}</div>
+      {%- endif %}
+    </div>
+    <button type="submit" class="mui-btn mui-btn--primary">Create site</button>
+  </form>
+</div>
+{% endblock %}

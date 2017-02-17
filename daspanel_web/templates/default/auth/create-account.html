@@ -1,0 +1,46 @@
+{% extends "/shared/modal-layout.html" %}
+
+
+{% block HEADERTAGS %}
+{{ super() }} 
+<style>
+  .mui-panel {
+    max-width: 500px;
+  }
+</style>
+{% endblock %}
+
+
+{% block BODY %}
+<div class="mui-panel">
+  <form method="post" action="{{ url_for('auth.create_account', **request.args) }}" role="form">
+    <legend>Create a new account</legend>
+    {{ form.csrf_token }} 
+    <div class="mui-textfield">
+      {{ form.email(placeholder="Email address",
+                    autofocus="true",
+                    type="email",
+                    spellcheck="false") }} 
+      {% if form.email.errors -%}
+        <div class="mui--text-danger">{{ form.email.errors[0] }}</div>
+      {%- endif %}
+    </div>
+    <div class="mui-textfield">
+      {{ form.password(placeholder="Password") }} 
+      {% if form.password.errors -%}
+        <div class="mui--text-danger">{{ form.password.errors[0] }}</div>
+      {%- endif %}
+    </div>
+    <div class="mui-textfield">
+      {{ form.password_confirm(placeholder="Confirm password") }} 
+      {% if form.password_confirm.errors -%}
+      <div class="mui--text-danger">{{ form.password_confirm.errors[0] }}</div>
+      {%- endif %}
+    </div>
+    <button type="submit" class="mui-btn mui-btn--primary">Create account</button>
+  </form>
+</div>
+<div class="mui-panel mui--text-center">
+  Already have an account? <a href="{{ url_for('auth.login') }}">Log in to your account &raquo;</a>
+</div>
+{% endblock %}

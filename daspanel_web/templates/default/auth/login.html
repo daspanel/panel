@@ -1,0 +1,51 @@
+{% extends "/shared/modal-layout.html" %}
+
+
+{% block HEADERTAGS %}
+{{ super() }}
+<style>
+  .mui-panel {
+    max-width: 500px;
+  }
+
+  button + a {
+    margin-left: 20px;
+  }
+</style>
+{% endblock %}
+
+
+{% block BODY %}
+<div class="mui-panel">
+  <form method="post" action="{{ url_for('auth.login', **request.args) }}" role="form">
+    <legend>Log in to your account</legend>
+    {{ form.csrf_token }}
+    <div class="mui-textfield">
+      {{ form.email(placeholder="Email address",
+                    autofocus="true",
+                    type="email")
+      }}
+      {% if form.email.errors -%}
+        <div class="mui--text-danger">{{ form.email.errors[0] }}</div>
+      {%- endif %}
+    </div>
+    <div class="mui-textfield">
+      {{ form.password(placeholder="Password") }}
+      {% if form.password.errors -%}
+        <div class="mui--text-danger">{{ form.password.errors[0] }}</div>
+      {%- endif %}
+    </div>
+    <div class="mui-checkbox">
+      <label>
+        {{ form.remember_me() }}
+        Remember me
+      </label>
+    </div>
+    <button type="submit" class="mui-btn mui-btn--primary">Log in</button>
+    <a href="{{ url_for('auth.forgot') }}">Forgot password?</a>
+  </form>
+</div>
+<div class="mui-panel mui--text-center">
+  Don't have an account? <a href="{{ url_for('auth.create_account') }}">Create a new account &raquo;</a>
+</div>
+{% endblock %}

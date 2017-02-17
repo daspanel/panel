@@ -1,0 +1,37 @@
+{% extends "/shared/modal-layout.html" %}
+
+
+{% block HEADERTAGS %}
+{{ super() }} 
+<style>
+  .mui-panel {
+    max-width: 500px;
+  }
+</style>
+{% endblock %}
+
+
+{% block BODY %}
+<div class="mui-panel">
+  <form method="post" action="{{ url_for('sites.edit', recid=recid) }}" role="form">
+    <legend>Edit Site</legend>
+    {{ form.csrf_token }} 
+    <div class="mui-textfield">
+      {{ form.sitedescription(placeholder=form.sitedescription.description,
+                    autofocus="true") }} 
+      <label>{{ form.sitedescription.label.text }}</label>
+      {% if form.sitedescription.errors -%}
+        <div class="mui--text-danger">{{ form.sitedescription.errors[0] }}</div>
+      {%- endif %}
+    </div>
+    <div class="mui-textfield">
+      {{ form.urlprefix(placeholder=form.urlprefix.description) }} 
+      <label>{{ form.urlprefix.label.text }}</label>
+      {% if form.urlprefix.errors -%}
+        <div class="mui--text-danger">{{ form.urlprefix.errors[0] }}</div>
+      {%- endif %}
+    </div>
+    <button type="submit" class="mui-btn mui-btn--primary">Update site</button>
+  </form>
+</div>
+{% endblock %}

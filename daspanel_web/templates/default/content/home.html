@@ -1,0 +1,29 @@
+{% extends "/shared/base-layout.html" %}
+
+
+{% block BODY %}
+<header id="header">
+  <nav id="appbar" class="mui-container-fluid mui-appbar mui--bg-primary-dark">
+  <table width="100%" cellspacing="0">
+    <tr class="mui--appbar-height">
+      <td>
+        <a id="appbar-sidenav-show" class="sidedrawer-toggle mui--visible-xs-inline-block mui--visible-sm-inline-block js-show-sidedrawer">☰</a>
+        <a id="appbar-sidenav-hide" class="sidedrawer-toggle mui--hidden-xs mui--hidden-sm js-hide-sidedrawer">☰</a>
+        <span class="mui--text-title">Home</span>
+      </td>
+    </tr>
+  </table>
+</nav>
+</header>
+
+    <div id="content-wrapper">
+      <div class="mui--appbar-height"></div>
+      <div class="mui-container-fluid">
+        <h1>Flaskapp home content</h1>
+      </div>
+</div>
+
+{% endblock %}
+
+
+

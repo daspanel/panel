@@ -1,0 +1,29 @@
+{% from "skeleton.js" import global_js -%}
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block TITLE %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="nodp, noydir">
+    <meta name="description" content="{% block DESCRIPTION %}{% endblock %}">
+    <meta name="keywords" content="{% block KEYWORDS %}{% endblock %}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Roboto:300,400,700'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <link rel="shortcut icon" href="{{ h.static('favicon.ico') }}"></link>
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script>
+      {% autoescape false -%}
+      {{ global_js() }}
+      {%- endautoescape %}
+    </script>
+    {% block HEADERTAGS %}{% endblock %}
+  </head>
+  <body>
+    {% block HTML %}{% endblock %}
+    {% block FOOTERTAGS %}{% endblock %}
+  </body>
+</html>

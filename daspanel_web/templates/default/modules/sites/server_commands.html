@@ -1,0 +1,112 @@
+{% extends "/shared/modal-layout.html" %}
+
+
+{% block HEADERTAGS %}
+{{ super() }} 
+<style>
+  .mui-panel {
+    max-width: 500px;
+  }
+</style>
+{% endblock %}
+
+
+{% block BODY %}
+<div class="mui-panel">
+  <form method="post" action="{{ url_for('sites.server_commands', recid=site._cuid) }}" role="form">
+    <legend>Server Commands</legend>
+    <div class="mui--text-dark mui--text-subhead">Site</div>
+    <div class="mui--text-dark-secondary">{{ site.sitedescription }}</div>
+    {{ form.csrf_token }}
+
+    <br>
+    <div class="mui-select">
+      {{ form.server_type(placeholder=form.server_type.description, spellcheck="false", autofocus="true") }}
+      <label>{{ form.server_type.label.text }}</label>
+      {% if form.server_type.errors -%}
+        <div class="mui--text-danger">{{ form.server_type.errors[0] }}</div>
+      {%- endif %}
+    </div>
+    <br>
+
+    <div class="mui-panel mui-col-xs-12">
+        <div class="mui-row">
+            <div class="mui-col-xs-2">
+                <img class="responsive-img mui--align-center" src="/static/images/settings.png">
+            </div>
+            <div class="mui-row mui-col-xs-10">
+                <div class="mui-col-xs-12 mui--text-dark mui--text-subhead">Generate Site Config</div>
+                <div class="mui-col-xs-12 mui--text-dark-secondary">Executing this command you will generate an new site config for the above select HTTP server using current site version.</div>
+            </div>
+        </div>
+        <br>
+        <div class="mui-divider"></div>
+        <div class="mui-row">
+            <div class="mui-col-xs-12 mui--text-right">
+            <button type="submit" name="cmd" value="gen-site-config" class="mui-btn mui-btn--small mui-btn--primary">Generate</button>
+            <button type="submit" name="cmd" value="configure" class="mui-btn mui-btn--small mui-btn--primary">Configure</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="mui-panel mui-col-xs-12">
+        <div class="mui-row">
+            <div class="mui-col-xs-2">
+                <img class="responsive-img mui--align-center" src="/static/images/settings.png">
+            </div>
+            <div class="mui-row mui-col-xs-10">
+                <div class="mui-col-xs-12 mui--text-dark mui--text-subhead">Enable Site</div>
+                <div class="mui-col-xs-12 mui--text-dark-secondary">Enable current site on the above selected HTTP server.</div>
+            </div>
+        </div>
+        <br>
+        <div class="mui-divider"></div>
+        <div class="mui-row">
+            <div class="mui-col-xs-12 mui--text-right">
+                <button type="submit" name="cmd" value="enable-site" class="mui-btn mui-btn--small mui-btn--primary">Enable</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="mui-panel mui-col-xs-12">
+        <div class="mui-row">
+            <div class="mui-col-xs-2">
+                <img class="responsive-img mui--align-center" src="/static/images/settings.png">
+            </div>
+            <div class="mui-row mui-col-xs-10">
+                <div class="mui-col-xs-12 mui--text-dark mui--text-subhead">Disable Site</div>
+                <div class="mui-col-xs-12 mui--text-dark-secondary">Disable current site on the above selected HTTP server.</div>
+            </div>
+        </div>
+        <br>
+        <div class="mui-divider"></div>
+        <div class="mui-row">
+            <div class="mui-col-xs-12 mui--text-right">
+                <button type="submit" name="cmd" value="disable-site" class="mui-btn mui-btn--small mui-btn--primary">Disable</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="mui-panel mui-col-xs-12">
+        <div class="mui-row">
+            <div class="mui-col-xs-2">
+                <img class="responsive-img mui--align-center" src="/static/images/settings.png">
+            </div>
+            <div class="mui-row mui-col-xs-10">
+                <div class="mui-col-xs-12 mui--text-dark mui--text-subhead">Reload Server</div>
+                <div class="mui-col-xs-12 mui--text-dark-secondary">Reload ALL sites on the above selected HTTP server.</div>
+            </div>
+        </div>
+        <br>
+        <div class="mui-divider"></div>
+        <div class="mui-row">
+            <div class="mui-col-xs-12 mui--text-right">
+                <button type="submit" name="cmd" value="server-reload" class="mui-btn mui-btn--small mui-btn--primary">Reload</button>
+            </div>
+        </div>
+    </div>
+
+
+  </form>
+</div>
+{% endblock %}

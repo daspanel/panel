@@ -1,0 +1,247 @@
+{% extends "/shared/base-layout.html" %}
+
+
+{% block BODY %}
+<header id="header">
+  <nav id="appbar" class="mui-container-fluid mui-appbar mui--bg-primary">
+  <table width="100%" cellspacing="0">
+    <tr class="mui--appbar-height">
+      <td>
+        <a id="appbar-sidenav-show" class="sidedrawer-toggle mui--visible-xs-inline-block mui--visible-sm-inline-block js-show-sidedrawer">☰</a>
+        <a id="appbar-sidenav-hide" class="sidedrawer-toggle mui--hidden-xs mui--hidden-sm js-hide-sidedrawer">☰</a>
+        <span class="mui--text-title">Sites</span>
+      </td>
+      <td class="mui--text-right">
+          <a id="appbar-more-vert" href="/sites"><i class="material-icons mui--text-title">refresh</i></a>
+          <a id="appbar-more-vert" href="/sites/new"><i class="material-icons mui--text-title">add</i></a>
+
+        <div class="mui-dropdown">
+          <a id="appbar-more-vert" data-mui-toggle="dropdown"><i class="material-icons mui--text-title">more_vert</i></a>
+          <ul class="mui-dropdown__menu mui-dropdown__menu--right">
+            
+            <li><a href="/docs/v1/getting-started/introduction">Introduction</a></li>
+            <li><a href="/docs/v1/getting-started/roadmap">Roadmap</a></li>
+            <li><a href="/support">Support</a></li>
+            <li><a href="/feedback">Feedback</a></li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+  </table>
+</nav>
+</header>
+
+    <div id="content-wrapper">
+      <div class="mui--appbar-height"></div>
+      <div class="mui-container-fluid">
+
+    <div class="mui-row mui--z1">
+        {% for r in records %}
+            
+        <div class="mui-col-xs-12 mui-col-sm-12 mui-col-md-6 mui-col-lg-6 mui-col-xl-4">
+  	<article class="cssui-usercard cssui-usercard_skin--material cssui-usercard_skin--material_mod--indigo">
+		<div class="cssui-usercard__body">
+			<header class="cssui-usercard__header">
+				<img src="/static/images/grav2.jpg" class="cssui-usercard__avatar" alt="Avatar">
+				<div class="cssui-usercard__header-info truncate">
+					<h3 title="{{ r.urlprefix }}" class="cssui-usercard__name">{{ r.urlprefix }}</h3>
+					<span title="{{ r._cuid }}" class="cssui-usercard__post">{{ r._cuid }}</span>
+				</div>
+			</header>
+			<div class="cssui-usercard__content">
+				<div class="cssui-slider cssui-slider_mod--horizontal">
+
+					<!-- the control elements of slider -->
+
+					<input id="slide{{loop.index}}_1" type="radio" class="cssui-slider__switch cssui-usercard__switch" name="slider-controls{{loop.index}}" checked autofocus>
+					<label for="slide{{loop.index}}_1" class="cssui-slider__control cssui-usercard__control"></label>
+
+					<input id="slide{{loop.index}}_2" type="radio" class="cssui-slider__switch cssui-usercard__switch" name="slider-controls{{loop.index}}">
+					<label for="slide{{loop.index}}_2" class="cssui-slider__control cssui-usercard__control"></label>
+
+					<input id="slide{{loop.index}}_3" type="radio" class="cssui-slider__switch cssui-usercard__switch" name="slider-controls{{loop.index}}">
+					<label for="slide{{loop.index}}_3" class="cssui-slider__control cssui-usercard__control"></label>
+
+					<input id="slide{{loop.index}}_4" type="radio" class="cssui-slider__switch cssui-usercard__switch" name="slider-controls{{loop.index}}">
+					<label for="slide{{loop.index}}_4" class="cssui-slider__control cssui-usercard__control"></label>
+
+<!--
+					<input id="slide{{loop.index}}_5" type="radio" class="cssui-slider__switch cssui-usercard__switch" name="slider-controls{{loop.index}}">
+					<label for="slide{{loop.index}}_5" class="cssui-slider__control cssui-usercard__control"></label>
+-->
+
+					<div class="cssui-slider__slides">
+
+						<!-- About slide -->
+						<div class="cssui-slider__slide">
+							<h4 class="cssui-usercard__title">About</h4>
+                            <div class="mui-container-fluid">
+                                <div class="mui-row">
+                                    <div class="mui-col-xs-12">
+                                        <div class="mui--text-dark-secondary mui--text-caption">Description</div>
+                                        <div class="mui--text-dark mui--text-body1">{{ r.sitedescription }}</div>
+                                    </div>
+                                </div>
+                                <br>
+
+                                <div class="mui-row">
+                                    <div class="mui-col-xs-12">
+                                        <div class="mui--text-dark-secondary mui--text-caption">Active Version</div>
+                                        <div class="mui--text-dark mui--text-body1">
+                                            {{ r.versions|selectattr('_cuid','equalto',r.active_version)|map(attribute='description')|first }}
+                                        </div>
+                                        <br>
+                                    </div>
+                                </div>
+
+                                <div class="mui-divider"></div>
+                                <div class="mui-row">
+                                    <div class="mui-col-xs-6">
+                                        <div class="mui--text-dark-secondary mui--text-caption">Type</div>
+                                        <div class="mui--text-dark mui--text-body1">
+                                            {{ r.versions|selectattr('_cuid','equalto',r.active_version)|map(attribute='sitetype')|first }}
+                                        </div>
+                                    </div>
+                                    <div class="mui-col-xs-6">
+                                        <div class="mui--text-dark-secondary mui--text-caption">Engine</div>
+                                        <div class="mui--text-dark mui--text-body1">
+                                            {{ r.versions|selectattr('_cuid','equalto',r.active_version)|map(attribute='runtime')|first }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="mui-row">
+                                    <div class="mui-col-xs-12">
+                                        <div class="mui--text-dark-secondary mui--text-caption">Active Directory</div>
+                                        <div title="{{ r.active_dir }}" class="mui--text-dark mui--text-body1 truncate">
+                                            {{ r.versions|selectattr('_cuid','equalto',r.active_version)|map(attribute='directory')|first }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mui-divider"></div>
+                                <br>
+
+                                <div class="mui-row">
+                                    <div class="mui-col-xs-6">
+                                        <div class="mui--text-dark-secondary mui--text-caption">Last Update</div>
+                                        <div class="mui--text-dark mui--text-body1 truncate">{{ r._last_update }}</div>
+                                    </div>
+                                    <div class="mui-col-xs-6">
+                                        <div class="mui--text-dark-secondary mui--text-caption">Created</div>
+                                        <div class="mui--text-dark mui--text-body1 truncate">{{ r._created_at }}</div>
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+                        <!-- EOF About slide -->
+
+						<!-- Control Panel slide -->
+						<div class="cssui-slider__slide">
+							<h4 class="cssui-usercard__title">Control Panel</h4>
+							<div class="cssui-usercard__stats">
+								<div class="cssui-stats cssui-usercard__stats-item">
+									<i onclick="window.location='{{ url_for('sites.content_fromhttp', recid=r._cuid) }}';" class="cssui-icon icon-sitecontent"></i>
+									<div class="cssui-stats__info cssui-usercard__stats-info">
+										<span class="cssui-stats__name cssui-usercard__stats-name">Content</span>
+									</div>
+								</div>
+								<div class="cssui-stats cssui-usercard__stats-item">
+									<i onclick="window.location='{{ url_for('sites.site_versions', recid=r._cuid) }}';" class="cssui-icon icon-vue"></i>
+									<div class="cssui-stats__info cssui-usercard__stats-info">
+										<span class="cssui-stats__name cssui-usercard__stats-name">Versions</span>
+									</div>
+								</div>
+								<div class="cssui-stats cssui-usercard__stats-item">
+									<i  onclick="window.location='{{ url_for('sites.site_redirects', recid=r._cuid) }}';"class="cssui-icon icon-angular"></i>
+									<div class="cssui-stats__info cssui-usercard__stats-info">
+										<span class="cssui-stats__name cssui-usercard__stats-name">Redirects</span>
+									</div>
+								</div>
+								<div class="cssui-stats cssui-usercard__stats-item">
+									<i onclick="window.location='{{ url_for('sites.server_commands', recid=r._cuid) }}';" class="cssui-icon icon-js"></i>
+									<div class="cssui-stats__info cssui-usercard__stats-info">
+										<span class="cssui-stats__name cssui-usercard__stats-name">Server</span>
+										<span class="cssui-stats__value">82%</span>
+									</div>
+								</div>
+							</div>
+						</div>
+                        <!-- EOF Control Panel slide -->
+
+
+						<!-- Versions slide -->
+						<div class="cssui-slider__slide">
+							<h4 class="cssui-usercard__title">Versions</h4>
+                            <div class="mui-container">
+                                <div class="mui-row">
+                                    <div class="mui-col-xs-12 mui--text-center">
+                                        <button onclick="window.location='{{ url_for('sites.site_versions', recid=r._cuid) }}';" class="mui-btn mui-btn--raised mui-btn--primary">Manage</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="mui-container">
+                                {% for v in r.versions %}
+                                {% if loop.index > 1 %}
+                                <div class="mui-divider"></div>
+                                {% endif %}
+                                <div class="mui-row">
+                                    <div class="mui-col-xs-12 truncate">{{ v.description }}</div>
+                                </div>
+                                
+                                {% endfor %}
+                            </div>
+						</div>
+                        <!-- EOF Versions slide -->
+
+						<!-- Redirects slide -->
+						<div class="cssui-slider__slide">
+							<h4 class="cssui-usercard__title">Redirects</h4>
+                            <div class="mui-container">
+                                <div class="mui-row">
+                                    <div class="mui-col-xs-12 mui--text-center">
+                                        <button onclick="window.location='{{ url_for('sites.site_redirects', recid=r._cuid) }}';" class="mui-btn mui-btn--raised mui-btn--primary">Manage</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="mui-container">
+                                {% for v in r.redirects %}
+                                {% if loop.index > 1 %}
+                                <div class="mui-divider"></div>
+                                {% endif %}
+                                <div class="mui-row">
+                                    <div class="mui-col-xs-12 truncate">{{ v.hosturl}}.{{ v.domain }}</div>
+                                </div>
+                                
+                                {% endfor %}
+                            </div>
+						</div>
+                        <!-- EOF Redirects slide -->
+
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer class="cssui-usercard__footer">
+            <div>
+                <button onclick="window.location='{{ url_for('sites.edit', recid=r._cuid) }}';" class="mui-btn mui-btn--small mui-btn--flat">Edit</button>
+                <!-- <button class="mui-btn mui-btn--small mui-btn--primary mui-btn--flat">Clone</button> -->
+                <button onclick="window.location='{{ url_for('sites.delete', recid=r._cuid) }}';" class="mui-btn mui-btn--small mui-btn--danger mui-btn--flat">Delete</button>
+            </div>
+
+		</footer>
+	</article>        
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+</div>
+{% endblock %}
+
+
+
+

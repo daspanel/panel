@@ -1,0 +1,32 @@
+{% extends "/shared/modal-layout.html" %}
+
+
+{% block HEADERTAGS %}
+{{ super() }} 
+<style>
+  .mui-panel {
+    max-width: 500px;
+  }
+</style>
+{% endblock %}
+
+
+{% block BODY %}
+<div class="mui-panel">
+    <div class="mui-panel">
+        {{ record.sitedescription }}
+    </div>
+    <form method="post" action="{{ url_for('sites.delete', recid=record._cuid) }}" role="form">
+
+        {{ form.csrf_token }} 
+        <div class="mui-select">
+            {{ form.confirm(placeholder=form.confirm.description, spellcheck="false") }}
+            <label>{{ form.confirm.label.text }}</label>
+            {% if form.confirm.errors -%}
+            <div class="mui--text-danger">{{ form.confirm.errors[0] }}</div>
+            {%- endif %}
+        </div>
+        <button type="submit" class="mui-btn mui-btn--danger">Delete</button>
+    </form>
+</div>
+{% endblock %}
