@@ -7,6 +7,7 @@ import datetime
 
 # Daspanel
 DASPANEL_DATADIR = os.path.join('/opt/daspanel/data', os.environ.get('DASPANEL_GUUID'))
+DASPANEL_UUID = os.environ.get('DASPANEL_GUUID')
 
 # Global
 DEBUG = ast.literal_eval(os.environ.get('DEBUG', 'True'))
@@ -37,5 +38,5 @@ MAIL_USERNAME = os.environ.get('DASPANEL_MAIL_USER')
 MAIL_PASSWORD = os.environ.get('DASPANEL_MAIL_PWD')
 MAIL_DEBUG = False
 
-# Daspanel
+
 
