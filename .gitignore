@@ -3,7 +3,6 @@ app.db
 test.db
 *.md5
 *.dev.env
-container_data/
 buildlog.txt
 
 # Created by https://www.gitignore.io/api/grunt,node,bower,less,python,sass,vim,virtualenv
