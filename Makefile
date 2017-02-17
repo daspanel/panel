@@ -75,8 +75,8 @@ help:
 	@echo "    clean-build      - Remove setup artifacts."
 	@echo "docker-file -------- - Create default Dockerfile."
 	@echo "docker ------------- - Create docker image."
-	@echo "  docker-clean------ - Clean docker build info."
-	@echo "  docker-tag-------- - Tag last built docker image."
+	@echo "  docker-clean       - Clean docker build info."
+	@echo "  docker-tag         - Tag last built docker image."
 	@echo "docker-clean-images  - Clean all images from last buildlog.txt."
 
 clean: clean-docs clean-pyc clean-build

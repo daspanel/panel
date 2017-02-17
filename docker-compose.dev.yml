@@ -96,9 +96,9 @@ services:
             - "5000"
             - "8080"
     daspanel-panel:
-        build:
-            context: .
-            dockerfile: Dockerfile
+        #build:
+        #    context: .
+        #    dockerfile: Dockerfile
         image: daspanel/panel:latest-dev
         volumes:
             - daspanel-data-dev:/opt/daspanel/data

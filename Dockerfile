@@ -27,9 +27,8 @@ RUN mkdir -p $INSTALL_PATH
 
 # Inject files in container file system
 COPY container_data /
-COPY daspanel_web wsgi.py requirements.txt /opt/daspanel/apps/panel/
-#COPY wsgi.py /opt/daspanel/apps/panel
-#COPY requirements.txt /opt/daspanel/apps/panel
+COPY daspanel_web /opt/daspanel/apps/panel/daspanel_web
+COPY config.py wsgi.py requirements.txt /opt/daspanel/apps/panel/
 
 WORKDIR $INSTALL_PATH
 
