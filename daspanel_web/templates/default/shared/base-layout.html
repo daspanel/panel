@@ -22,9 +22,9 @@
       <div class="mui-divider"></div>
       {% if g.user.is_authenticated: %}
       <ul>
-        <li><a href="{{ url_for('content.home') }}"><strong>Home</strong></a></li>
+        <li><a href="{{ url_for('content.home') }}"><strong>Dashboard</strong></a></li>
         <li><a href="{{ url_for('sites.home') }}"><strong>Sites</strong></a></li>
-        <!-- <li><a href="{{ url_for('sites.home') }}"><strong>Module1</strong></a></li> -->
+        <!-- <li><a href="{{ url_for('module1.home') }}"><strong>Module1</strong></a></li> -->
         <li><a href="{{ url_for('auth.create_account') }}"><strong>New User</strong></a></li>
         <li><a href="{{ url_for('auth.logout') }}"><strong>Log out</strong></a></li>
         <div class="mui-divider"></div>
