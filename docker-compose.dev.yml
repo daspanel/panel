@@ -110,7 +110,7 @@ services:
             - LOCAL_USER_ID=1000
             - GUNICORN_APP_DIR=/opt/daspanel/apps/panel/daspanel_web
             #- GUNICORN_CMD=/opt/daspanel/apps/panel/wsgi --bind=0.0.0.0:5000 --user=daspanel --group=daspanel daspanel_web:app Daspanel_Panel
-            - GUNICORN_CMD=su-exec daspanel:daspanel python /opt/daspanel/apps/panel/wsgi.py
+            #- GUNICORN_CMD=su-exec daspanel:daspanel python /opt/daspanel/apps/panel/wsgi.py
             #- PIP_INSTALL=-r /opt/daspanel/apps/apiserver/requirements/dev.txt -r /opt/daspanel/apps/apiserver/requirements/docs.txt -r /opt/daspanel/apps/apiserver/requirements/pkgutils.txt
         env_file:
             - daspanel.dev.env

@@ -58,6 +58,10 @@
                 {% endif %}
                 <br>
                 <div class="mui-col-xs-12 mui--text-dark mui--text-menu mui--text-center">
+                    <a href="" onclick="window.open('http://{{ v._cuid }}.v.{{ site.urlprefix }}.sites.daspanel.site');">Preview</a>
+                </div>
+                <br>
+                <div class="mui-col-xs-12 mui--text-dark mui--text-menu mui--text-center">
                     <a href="{{ url_for('sites.site_versions_clone', recid=site._cuid, versionid=v._cuid) }}">Clone</a>
                 </div>
 

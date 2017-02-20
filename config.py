@@ -8,6 +8,7 @@ import datetime
 # Daspanel
 DASPANEL_DATADIR = os.path.join('/opt/daspanel/data', os.environ.get('DASPANEL_GUUID'))
 DASPANEL_UUID = os.environ.get('DASPANEL_GUUID')
+DASPANEL_HOST = os.environ.get('DASPANEL_HOST', 'daspanel.site')
 
 # Global
 DEBUG = ast.literal_eval(os.environ.get('DEBUG', 'True'))

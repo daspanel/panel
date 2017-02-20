@@ -81,7 +81,7 @@ def create_app(extra_config=None):
     app.register_blueprint(content.bp)
     app.register_blueprint(auth.bp, url_prefix='/auth')
     app.register_blueprint(sites.bp, url_prefix='/sites')
-    app.register_blueprint(module1.bp, url_prefix='/module1')
+    #app.register_blueprint(module1.bp, url_prefix='/module1')
 
     return app
 
