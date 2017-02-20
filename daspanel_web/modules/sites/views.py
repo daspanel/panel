@@ -185,9 +185,17 @@ def new():
         data = request.form.to_dict()
         data.pop("csrf_token", None)
         api = SitesApi(server=API_SERVER, auth=current_app.config['DASPANEL_UUID'])
+        server_api = HttpServiceApi(server=API_SERVER, auth=current_app.config['DASPANEL_UUID'])
         try:
             result = api.add_site(payload=data)
             flash('Site criado com sucesso!!!', 'message')
+            try:
+                cmd_result = server_api.gen_config(server_type='caddy', id=result['_cuid'])
+                cmd_result = server_api.enable_site(server_type='caddy', id=result['_cuid'])
+                cmd_result = server_api.http_reload(server_type='caddy')
+            except APIError as err:
+                cmd_result = {}
+                flash(str(err), 'error')
             return redirect(url_for('sites.content_fromhttp', recid=result['_cuid']))
             #return redirect(request.args.get('next') or url_for('sites.home'))
         except APIError as err:
@@ -212,6 +220,13 @@ def delete(recid):
     if form.validate_on_submit():
         try:
             sitename = result['sitedescription']
+            server_api = HttpServiceApi(server=API_SERVER, auth=current_app.config['DASPANEL_UUID'])
+            try:
+                cmd_result = server_api.disable_site(server_type='caddy', id=recid)
+                cmd_result = server_api.http_reload(server_type='caddy')
+            except APIError as err:
+                cmd_result = {}
+                flash(str(err), 'error')
             result = api.del_site(id=recid)
             flash('Site deletado sucesso: ' + ' ' + sitename, 'message')
             return redirect(url_for('sites.home'))
@@ -242,6 +257,15 @@ def edit(recid):
             sitename = result['sitedescription']
             result = api.edit_site(id=recid, payload=data)
             flash('Site edited with sucess: ' + ' ' + sitename, 'message')
+            server_api = HttpServiceApi(server=API_SERVER, auth=current_app.config['DASPANEL_UUID'])
+            try:
+                cmd_result = server_api.disable_site(server_type='caddy', id=recid)
+                cmd_result = server_api.gen_config(server_type='caddy', id=recid)
+                cmd_result = server_api.enable_site(server_type='caddy', id=recid)
+                cmd_result = server_api.http_reload(server_type='caddy')
+            except APIError as err:
+                cmd_result = {}
+                flash(str(err), 'error')
             return redirect(url_for('sites.home'))
         except APIError as err:
             result = {}
@@ -379,6 +403,15 @@ def site_versions_new(recid):
         version_api = VersionsApi(server=API_SERVER, auth=current_app.config['DASPANEL_UUID'])
         try:
             result = version_api.add_version(id=recid, payload=data)
+            server_api = HttpServiceApi(server=API_SERVER, auth=current_app.config['DASPANEL_UUID'])
+            try:
+                cmd_result = server_api.disable_site(server_type='caddy', id=recid)
+                cmd_result = server_api.gen_config(server_type='caddy', id=recid)
+                cmd_result = server_api.enable_site(server_type='caddy', id=recid)
+                cmd_result = server_api.http_reload(server_type='caddy')
+            except APIError as err:
+                cmd_result = {}
+                flash(str(err), 'error')
             flash('Version ' + data['description'] +' created', 'message')
             return redirect(url_for('sites.site_versions', recid=recid))
         except APIError as err:
@@ -408,6 +441,15 @@ def site_versions_delete(recid, versionid):
         try:
             result = version_api.del_version(id=recid, version_id=versionid)
             flash('Version  deleted', 'message')
+            server_api = HttpServiceApi(server=API_SERVER, auth=current_app.config['DASPANEL_UUID'])
+            try:
+                cmd_result = server_api.disable_site(server_type='caddy', id=recid)
+                cmd_result = server_api.gen_config(server_type='caddy', id=recid)
+                cmd_result = server_api.enable_site(server_type='caddy', id=recid)
+                cmd_result = server_api.http_reload(server_type='caddy')
+            except APIError as err:
+                cmd_result = {}
+                flash(str(err), 'error')
             return redirect(url_for('sites.site_versions', recid=recid))
         except APIError as err:
             result = {}
@@ -446,6 +488,15 @@ def site_versions_edit(recid, versionid):
         try:
             result = versions_api.edit_version(id=recid, version_id=versionid, payload=data)
             flash('Version  edited', 'message')
+            server_api = HttpServiceApi(server=API_SERVER, auth=current_app.config['DASPANEL_UUID'])
+            try:
+                cmd_result = server_api.disable_site(server_type='caddy', id=recid)
+                cmd_result = server_api.gen_config(server_type='caddy', id=recid)
+                cmd_result = server_api.enable_site(server_type='caddy', id=recid)
+                cmd_result = server_api.http_reload(server_type='caddy')
+            except APIError as err:
+                cmd_result = {}
+                flash(str(err), 'error')
             return redirect(url_for('sites.site_versions', recid=recid))
         except APIError as err:
             result = {}
@@ -464,6 +515,15 @@ def site_versions_setdefault(recid, versionid):
     try:
         site_result = api.set_defaultversion(id=recid, version_id=versionid)
         flash('Active version changed', 'message')
+        server_api = HttpServiceApi(server=API_SERVER, auth=current_app.config['DASPANEL_UUID'])
+        try:
+            cmd_result = server_api.disable_site(server_type='caddy', id=recid)
+            cmd_result = server_api.gen_config(server_type='caddy', id=recid)
+            cmd_result = server_api.enable_site(server_type='caddy', id=recid)
+            cmd_result = server_api.http_reload(server_type='caddy')
+        except APIError as err:
+            cmd_result = {}
+            flash(str(err), 'error')
         return redirect(url_for('sites.site_versions', recid=recid))
     except APIError as err:
         result = {}
@@ -479,6 +539,15 @@ def site_versions_clone(recid, versionid):
     try:
         site_result = api.clone_version(id=recid, version_id=versionid)
         flash('Version cloned', 'message')
+        server_api = HttpServiceApi(server=API_SERVER, auth=current_app.config['DASPANEL_UUID'])
+        try:
+            cmd_result = server_api.disable_site(server_type='caddy', id=recid)
+            cmd_result = server_api.gen_config(server_type='caddy', id=recid)
+            cmd_result = server_api.enable_site(server_type='caddy', id=recid)
+            cmd_result = server_api.http_reload(server_type='caddy')
+        except APIError as err:
+            cmd_result = {}
+            flash(str(err), 'error')
         return redirect(url_for('sites.site_versions', recid=recid))
     except APIError as err:
         result = {}
@@ -532,6 +601,15 @@ def site_redirects_new(recid):
         try:
             result = api.redirects_new(id=recid, payload=data)
             flash('Redirect ' + data['hosturl'] + '.'  + data['domain'] + ' created', 'message')
+            server_api = HttpServiceApi(server=API_SERVER, auth=current_app.config['DASPANEL_UUID'])
+            try:
+                cmd_result = server_api.disable_site(server_type='caddy', id=recid)
+                cmd_result = server_api.gen_config(server_type='caddy', id=recid)
+                cmd_result = server_api.enable_site(server_type='caddy', id=recid)
+                cmd_result = server_api.http_reload(server_type='caddy')
+            except APIError as err:
+                cmd_result = {}
+                flash(str(err), 'error')
             return redirect(url_for('sites.site_redirects', recid=recid))
         except APIError as err:
             result = {}
@@ -559,6 +637,15 @@ def site_redirects_delete(recid, redirectid):
         try:
             result = api.redirects_del(id=recid, redirect_id=redirectid)
             flash('Redirect  deleted', 'message')
+            server_api = HttpServiceApi(server=API_SERVER, auth=current_app.config['DASPANEL_UUID'])
+            try:
+                cmd_result = server_api.disable_site(server_type='caddy', id=recid)
+                cmd_result = server_api.gen_config(server_type='caddy', id=recid)
+                cmd_result = server_api.enable_site(server_type='caddy', id=recid)
+                cmd_result = server_api.http_reload(server_type='caddy')
+            except APIError as err:
+                cmd_result = {}
+                flash(str(err), 'error')
             return redirect(url_for('sites.site_redirects', recid=recid))
         except APIError as err:
             result = {}
@@ -606,6 +693,15 @@ def site_redirects_edit(recid, redirectid):
         try:
             result = api.redirects_edit(id=recid, redirect_id=redirectid, payload=data)
             flash('Redirect edited', 'message')
+            server_api = HttpServiceApi(server=API_SERVER, auth=current_app.config['DASPANEL_UUID'])
+            try:
+                cmd_result = server_api.disable_site(server_type='caddy', id=recid)
+                cmd_result = server_api.gen_config(server_type='caddy', id=recid)
+                cmd_result = server_api.enable_site(server_type='caddy', id=recid)
+                cmd_result = server_api.http_reload(server_type='caddy')
+            except APIError as err:
+                cmd_result = {}
+                flash(str(err), 'error')
             return redirect(url_for('sites.site_redirects', recid=recid))
         except APIError as err:
             result = {}
