@@ -58,6 +58,7 @@ class VersionsApi(GenericAPI):
 
 class HttpServiceApi(GenericAPI):
     gen_config   = APIMethod('get', '/{server_type}/genconfig/{id}')
+    del_config   = APIMethod('get', '/{server_type}/delconfig/{id}')
     enable_site  = APIMethod('get', '/{server_type}/activate/{id}')
     disable_site = APIMethod('get', '/{server_type}/deactivate/{id}')
     http_reload  = APIMethod('get', '/{server_type}/reload')
@@ -223,6 +224,7 @@ def delete(recid):
             server_api = HttpServiceApi(server=API_SERVER, auth=current_app.config['DASPANEL_UUID'])
             try:
                 cmd_result = server_api.disable_site(server_type='caddy', id=recid)
+                cmd_result = server_api.del_config(server_type='caddy', id=recid)
                 cmd_result = server_api.http_reload(server_type='caddy')
             except APIError as err:
                 cmd_result = {}
