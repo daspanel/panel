@@ -4,6 +4,7 @@ test.db
 *.md5
 *.dev.env
 buildlog.txt
+daspanel_web/templates/default/static/cache/
 
 # Created by https://www.gitignore.io/api/grunt,node,bower,less,python,sass,vim,virtualenv
 
@@ -74,7 +75,7 @@ bower_components
 
 
 ### Less ###
-*.css
+#*.css
 
 
 ### Python ###
