@@ -1,0 +1,245 @@
+/**
+ * Flaskapp Global Stylesheet
+ * @module global
+ */
+/**
+ * Variables
+ */
+/**
+ * Global CSS
+ */
+html,
+body {
+  height: 100%;
+  background-color: #eee;
+  font-family: "Helvetica Neue", Helvetica, Arial, Verdana, Tahoma; }
+
+html,
+body,
+input,
+textarea,
+buttons {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004); }
+
+/**
+ * Layout CSS
+ */
+#header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 2;
+  transition: left 0.2s;
+}
+
+#sidedrawer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 200px;
+  left: -200px;
+  overflow: auto;
+  z-index: 2;
+  background-color: #fff;
+  transition: transform 0.2s;
+}
+
+#wrapper {
+  min-height: 100%;
+  overflow-x: hidden;
+  margin-left: 0px;
+  transition: margin-left 0.2s;
+  
+  /* sticky bottom */
+  margin-bottom: -160px;
+  padding-bottom: 160px;
+}
+
+#footer {
+  height: 160px;
+  margin-left: 0px;
+  transition: margin-left 0.2s;
+}
+
+#panel {
+  min-height: -o-calc(100vh - 200px);
+  min-height: calc(100vh - 200px); }
+
+@media (min-width: 768px) {
+  #header {
+    left: 200px;
+  }
+  
+  #sidedrawer {
+    transform: translate(200px);
+  }
+  
+  #content-wrapper {
+    margin-left: 200px;
+  }
+  
+  #footer {
+    margin-left: 200px;
+  }
+  
+  body.hide-sidedrawer #header {
+    left: 0;
+  }
+  
+  body.hide-sidedrawer #sidedrawer {
+    transform: translate(0px);
+  }
+  
+  body.hide-sidedrawer #content-wrapper {
+    margin-left: 0;
+  }
+  
+  body.hide-sidedrawer #footer {
+    margin-left: 0;
+  }
+}
+
+/**
+ * Toggle Sidedrawer
+ */
+#sidedrawer.active {
+  transform: translate(200px);
+}
+
+/**
+ * Header CSS
+ */
+.sidedrawer-toggle {
+  color: #fff;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 20px;
+  margin-right: 10px;
+}
+
+.sidedrawer-toggle:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+
+/**
+ * Sidedrawer CSS
+ */
+
+#sidedrawer-brand {
+  padding-left: 20px;
+}
+
+#sidedrawer ul {
+  list-style: none;
+}
+
+#sidedrawer > ul {
+  padding-left: 0px;
+}
+
+#sidedrawer > ul > li:first-child {
+  padding-top: 15px;
+}
+
+#sidedrawer strong {
+  display: block;
+  padding: 15px 22px;
+  cursor: pointer;
+}
+
+#sidedrawer strong:hover {
+  background-color: #E0E0E0;
+}
+
+#sidedrawer strong + ul > li {
+  padding: 6px 0px;
+}
+
+
+/**
+ * Flash CSS
+ */
+#flash {
+  position: fixed;
+  top: 0;
+  right: 0; }
+  #flash li {
+    font-size: 12px;
+    color: #fff;
+    background-color: red;
+    padding: 1px 5px;
+    margin: 2px; }
+
+
+/**
+ * Footer CSS
+ */
+
+#footer {
+  background-color: #0288D1;
+  color: #fff;
+}
+
+#footer a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/**
+ * Modal CSS
+ */
+#modal-wrapper {
+  min-height: 100%;
+  margin-bottom: -50px;
+  padding-bottom: 50px; }
+  #modal-wrapper .mui-panel {
+    margin: 0 auto 20px; }
+
+#modal-footer {
+  height: 50px;
+  text-align: center; }
+  #modal-footer a {
+    color: #333; }
+
+#modal-header-brand {
+  color: #777;
+  margin: 20px 0px;
+  display: inline-block;
+  font-size: 25px; }
+  #modal-header-brand:hover {
+    text-decoration: none; }
+  #modal-header-brand img {
+    height: 30px;
+    width: 30px;
+    position: relative;
+    top: -3px; }
+
+/**
+ * Card CSS
+ */
+.card-example {
+  position: relative;
+  background-color: #fff;
+}
+
+.card-example img {
+  width: 100%;
+}
+
+.card-example span.title {
+  display: inline-block;
+  position: absolute;
+  bottom: 140px;
+  left: 20px;
+}
+
+.card-example .label {
+  padding: 25px 25px 0;
+}
+
+
