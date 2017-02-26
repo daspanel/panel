@@ -1,4 +1,4 @@
-{% extends "/shared/modal-layout.html" %}
+{% extends "/shared/modal-list-layout.html" %}
 
 
 {% block HEADERTAGS %}
@@ -10,6 +10,23 @@
 </style>
 {% endblock %}
 
+{% block LISTNAVBAR %}
+  <nav id="appbar" class="mui-container-fluid mui-appbar mui--bg-primary">
+  <table width="100%" cellspacing="0">
+    <tr class="mui--appbar-height">
+      <td>
+        <a id="appbar-more-vert" href="{{ url_for('sites.home') }}" class="sidedrawer-toggle mui--visible-xs-inline-block mui--visible-sm-inline-block">
+            <i class="material-icons mui--text-title">arrow_back</i>
+        </a>
+        <a id="appbar-more-vert" href="{{ url_for('sites.home') }}" class="sidedrawer-toggle mui--hidden-xs mui--hidden-sm">
+            <i class="material-icons mui--text-title">arrow_back</i>
+        </a>
+        <span class="mui--text-title">New Site</span>
+      </td>
+    </tr>
+  </table>
+</nav>
+{% endblock %}
 
 {% block BODY %}
 <div class="mui-panel">

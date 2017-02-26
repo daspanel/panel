@@ -15,8 +15,12 @@
   <table width="100%" cellspacing="0">
     <tr class="mui--appbar-height">
       <td>
-        <a href="{{ url_for('sites.site_redirects', recid=site._cuid) }}" class="sidedrawer-toggle mui--visible-xs-inline-block mui--visible-sm-inline-block">☰</a>
-        <a href="{{ url_for('sites.site_redirects', recid=site._cuid) }}" class="sidedrawer-toggle mui--hidden-xs mui--hidden-sm">☰</a>
+        <a id="appbar-more-vert" href="{{ url_for('sites.site_redirects', recid=site._cuid) }}" class="sidedrawer-toggle mui--visible-xs-inline-block mui--visible-sm-inline-block">
+            <i class="material-icons mui--text-title">arrow_back</i>
+        </a>
+        <a id="appbar-more-vert" href="{{ url_for('sites.site_redirects', recid=site._cuid) }}" class="sidedrawer-toggle mui--hidden-xs mui--hidden-sm">
+            <i class="material-icons mui--text-title">arrow_back</i>
+        </a>
         <span class="mui--text-title">Edit Redirect</span>
       </td>
     </tr>
