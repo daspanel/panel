@@ -40,8 +40,14 @@ def create_app(extra_config=None):
     #app.config['SECRET_KEY'] = os.environ.get('DASPANEL_GUUID', os.urandom(25).encode('hex'))
     #app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
     #app.config['DEBUG_TB_PROFILER_ENABLED'] = True
-    toolbar = DebugToolbarExtension()
-    toolbar.init_app(app)
+    print(app.config['DEBUG'])
+    print(type(app.config['DEBUG']))
+    if app.config['DEBUG'] == True:
+        print("debug enabled")
+        toolbar = DebugToolbarExtension()
+        toolbar.init_app(app)
+    else:
+        print("debug disabled")
 
     # import static file manifest
     js = pkg_resources.resource_string('daspanel_web', '/templates/default/static/rev-manifest.json')

@@ -9,9 +9,13 @@ import datetime
 DASPANEL_DATADIR = os.path.join('/opt/daspanel/data', os.environ.get('DASPANEL_GUUID'))
 DASPANEL_UUID = os.environ.get('DASPANEL_GUUID')
 DASPANEL_HOST = os.environ.get('DASPANEL_HOST', 'daspanel.site')
+if os.environ.get('DASPANEL_DEBUG', 'False') == 'True':
+    DASPANEL_DEBUG = True
+else:
+    DASPANEL_DEBUG = False
 
 # Global
-DEBUG = ast.literal_eval(os.environ.get('DEBUG', 'True'))
+DEBUG = DASPANEL_DEBUG
 SECRET_KEY = os.environ.get('DASPANEL_GUUID', os.urandom(25).encode('hex'))
 PERMANENT_SESSION_LIFETIME = datetime.timedelta(days=30)
 
