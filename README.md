@@ -1,6 +1,6 @@
 # Flask Seed App
-
-[![Requirements Status](https://requires.io/github/muicss/flaskapp/requirements.svg?branch=master)](https://requires.io/github/muicss/flaskapp/requirements/?branch=master)
+[![Docker Hub](https://img.shields.io/badge/docker-ready-blue.svg)](https://registry.hub.docker.com/daspanel/panel/)
+[![Requirements Status](https://requires.io/github/daspanel/panel/requirements.svg?branch=master)](https://requires.io/github/daspanel/panel/requirements/?branch=master)
 [![devDependency Status](https://david-dm.org/muicss/flaskapp/dev-status.svg?path=static-src)](https://david-dm.org/muicss/flaskapp?path=static-src#info=devDependencies)
 
 This app is meant to serve as template for new projects. It has the following features:
