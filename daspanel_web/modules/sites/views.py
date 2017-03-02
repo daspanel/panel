@@ -189,7 +189,7 @@ def new():
         server_api = HttpServiceApi(server=API_SERVER, auth=current_app.config['DASPANEL_UUID'])
         try:
             result = api.add_site(payload=data)
-            flash('Site criado com sucesso!!!', 'message')
+            flash('Site created successfully', 'message')
             try:
                 cmd_result = server_api.gen_config(server_type='caddy', id=result['_cuid'])
                 cmd_result = server_api.enable_site(server_type='caddy', id=result['_cuid'])
@@ -230,7 +230,7 @@ def delete(recid):
                 cmd_result = {}
                 flash(str(err), 'error')
             result = api.del_site(id=recid)
-            flash('Site deletado sucesso: ' + ' ' + sitename, 'message')
+            flash('Site successfully deleted: ' + ' ' + sitename, 'message')
             return redirect(url_for('sites.home'))
         except APIError as err:
             result = {}
@@ -258,7 +258,7 @@ def edit(recid):
         try:
             sitename = result['sitedescription']
             result = api.edit_site(id=recid, payload=data)
-            flash('Site edited with sucess: ' + ' ' + sitename, 'message')
+            flash('Site edited successfully: ' + ' ' + sitename, 'message')
             server_api = HttpServiceApi(server=API_SERVER, auth=current_app.config['DASPANEL_UUID'])
             try:
                 cmd_result = server_api.disable_site(server_type='caddy', id=recid)
@@ -335,28 +335,28 @@ def server_commands(recid):
             if data['cmd'] == 'gen-site-config':
                 try:
                     cmd_result = server_api.gen_config(server_type=data['server_type'], id=recid)
-                    flash("Site configuration generated with success", 'message')
+                    flash("Successfully generated site configuration", 'message')
                 except APIError as err:
                     cmd_result = {}
                     flash(str(err), 'error')
             elif data['cmd'] == 'enable-site':
                 try:
                     cmd_result = server_api.enable_site(server_type=data['server_type'], id=recid)
-                    flash("Site enabled with success", 'message')
+                    flash("Site successfully activated", 'message')
                 except APIError as err:
                     cmd_result = {}
                     flash(str(err), 'error')
             elif data['cmd'] == 'disable-site':
                 try:
                     cmd_result = server_api.disable_site(server_type=data['server_type'], id=recid)
-                    flash("Site disabled with success", 'message')
+                    flash("Site deactivated successfully", 'message')
                 except APIError as err:
                     cmd_result = {}
                     flash(str(err), 'error')
             elif data['cmd'] == 'server-reload':
                 try:
                     cmd_result = server_api.http_reload(server_type=data['server_type'])
-                    flash("HTTP server reloaded with success", 'message')
+                    flash("HTTP server successfully reloaded", 'message')
                 except APIError as err:
                     cmd_result = {}
                     flash(str(err), 'error')
