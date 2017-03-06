@@ -256,9 +256,8 @@ def edit(recid):
         data = request.form.to_dict()
         data.pop("csrf_token", None)
         try:
-            sitename = result['sitedescription']
             result = api.edit_site(id=recid, payload=data)
-            flash('Site edited successfully: ' + ' ' + sitename, 'message')
+            flash('Site edited successfully: ' + ' ' + data['sitedescription'], 'message')
             server_api = HttpServiceApi(server=API_SERVER, auth=current_app.config['DASPANEL_UUID'])
             try:
                 cmd_result = server_api.disable_site(server_type='caddy', id=recid)
