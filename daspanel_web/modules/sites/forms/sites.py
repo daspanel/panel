@@ -18,8 +18,16 @@ from wtforms.validators import (Required, Email, URL, EqualTo, ValidationError,
 #from wtforms.widgets import PasswordInput, CheckboxInput
 #from daspanel_web.lib.util import verify_password_hash
 
-_my_types = [('generic', 'Generic PHP site'), ('grav', 'Grav'), ('wordpress', 'Wordpress')]
-_my_runtimes = [('php70', 'PHP 7.0'), ('php56', 'PHP 5.6')]
+_my_types = [
+    ('generic', 'Generic site'), 
+    ('grav', 'Grav'), 
+    ('wordpress', 'Wordpress')
+]
+_my_runtimes = [
+    ('php70', 'PHP 7.0'), 
+    ('php56', 'PHP 5.6'),
+    ('static', 'Static')
+]
 _my_confirmation = [('no', 'NO'), ('yes', 'YES')]
 
 # ============================
