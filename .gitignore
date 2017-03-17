@@ -5,6 +5,7 @@ test.db
 *.dev.env
 buildlog.txt
 daspanel_web/templates/default/static/cache/
+data/
 
 # Created by https://www.gitignore.io/api/grunt,node,bower,less,python,sass,vim,virtualenv
 

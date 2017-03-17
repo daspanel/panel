@@ -26,7 +26,6 @@ cssutils.log.setLevel(logging.CRITICAL)
 def create_app(extra_config=None):
     """Create Flask app for Flaskapp
     """
-    print("Initializing flas app ")
     app = Flask('daspanel_web',
                 template_folder='templates/default',
                 static_folder='templates/default/static')
@@ -37,11 +36,9 @@ def create_app(extra_config=None):
 
     # the toolbar is only enabled in debug mode:
     #app.debug = True
-    #app.config['SECRET_KEY'] = os.environ.get('DASPANEL_GUUID', os.urandom(25).encode('hex'))
+    #app.config['SECRET_KEY'] = os.environ.get('DASPANEL_SYS_UUID', os.urandom(25).encode('hex'))
     #app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
     #app.config['DEBUG_TB_PROFILER_ENABLED'] = True
-    print(app.config['DEBUG'])
-    print(type(app.config['DEBUG']))
     if app.config['DEBUG'] == True:
         print("debug enabled")
         toolbar = DebugToolbarExtension()
@@ -65,10 +62,14 @@ def create_app(extra_config=None):
         print("Creating database file: " + os.path.join(app.config['DASPANEL_DATADIR'], 'db', app.config['APP_DATABASE']))
         with app.app_context():
             db.create_all()
+
+    conf_file = os.path.join(app.config['DASPANEL_DATADIR'], 'db', 'sysconfig.json')
+    sys_config = json.loads(open(conf_file).read())
+
     with app.app_context():
         update_or_create_admin(
-            os.environ.get('DASPANEL_MASTER_EMAIL'), 
-            os.environ.get('DASPANEL_MASTER_PASSWORD')
+            sys_config["sys"]["admin"], 
+            sys_config["sys"]["password"]
         )
 
     # init Flask-Principal
