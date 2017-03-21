@@ -31,14 +31,14 @@ services:
             - daspanel.env
         depends_on:
             - daspanel-storage
-    daspanel-mariadb:
+    daspanel-mysql:
         image: daspanel/mariadb
         volumes:
             - ./data:/opt/daspanel/data
         networks:
             backend:
                 aliases:
-                    - daspanel-mysql
+                    - daspanel-mariadb
         expose:
             - "3306"
         environment:
@@ -67,7 +67,7 @@ services:
             - "9000"
         env_file:
             - daspanel.dev.env
-    daspanel-caddy-http-server:
+    daspanel-http-server:
         image: daspanel/caddy-http-server
         volumes:
             - ./data:/opt/daspanel/data
@@ -82,7 +82,7 @@ services:
         env_file:
             - daspanel.dev.env
     daspanel-api:
-        image: daspanel/api-server:latest-dev
+        image: daspanel/api-server:latest
         volumes:
             - ./data:/opt/daspanel/data
             - /home/abner/Devel/abnerjacobsen/python/api_server:/opt/daspanel/apps/apiserver
