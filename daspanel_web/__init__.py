@@ -14,7 +14,7 @@ from daspanel_web.lib import template_helpers
 from daspanel_web.lib.util import generate_password_hash
 from daspanel_web.meta import mail, db, lm
 from daspanel_web.modules.auth.models import User
-from daspanel_web.modules import content, auth, sites, module1
+from daspanel_web.modules import content, auth, sites, module1, services
 
 # suppress cssutils warning messages
 cssutils.log.setLevel(logging.CRITICAL)
@@ -89,6 +89,7 @@ def create_app(extra_config=None):
     app.register_blueprint(auth.bp, url_prefix='/auth')
     app.register_blueprint(sites.bp, url_prefix='/sites')
     app.register_blueprint(module1.bp, url_prefix='/module1')
+    app.register_blueprint(services.bp, url_prefix='/services')
 
     return app
 
