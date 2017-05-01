@@ -227,7 +227,7 @@
 		</div>
 		<footer class="cssui-usercard__footer">
             <div>
-                <button onclick="window.open('http://{{ r.urlprefix }}.sites.{{ config.DASPANEL_HOST }}');" class="mui-btn mui-btn--small mui-btn--primary mui-btn--flat">Preview</button>
+                <button onclick="window.open('https://{{ r.urlprefix }}.sites.{{ config.DASPANEL_HOST }}');" class="mui-btn mui-btn--small mui-btn--primary mui-btn--flat">Preview</button>
                 <button onclick="window.location='{{ url_for('sites.edit', recid=r._cuid) }}';" class="mui-btn mui-btn--small mui-btn--flat">Edit</button>
                 <!-- <button class="mui-btn mui-btn--small mui-btn--primary mui-btn--flat">Clone</button> -->
                 <button onclick="window.location='{{ url_for('sites.delete', recid=r._cuid) }}';" class="mui-btn mui-btn--small mui-btn--danger mui-btn--flat">Delete</button>
