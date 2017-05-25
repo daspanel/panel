@@ -88,6 +88,10 @@ while [  $COUNT -lt $MAX_TRIES ]; do
 	        echo "*** S3 CONFIG ***";
 	        echo "$(cat /opt/daspanel/data/$DASPANEL_SYS_UUID/containers/s3.configured)";
 	    fi
+	    echo "";
+	    echo "";
+	    echo "*** DASPANEL System Config ***";
+        echo "$(echo $SYSCFG | /usr/bin/jq .)";
 	    echo ""; 
 	    echo ""; 
 	} | ssmtp $DASPANEL_SYS_ADMIN
