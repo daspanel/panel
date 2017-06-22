@@ -19,6 +19,7 @@ from wtforms.validators import (Required, Email, URL, EqualTo, ValidationError,
 #from daspanel_web.lib.util import verify_password_hash
 
 _my_confirmation = [('no', 'NO'), ('yes', 'YES')]
+_ssl_type = [('self', 'Self-signed'), ('auto', 'AutoSSL (Lets Encrypt)'), ('letsencrypt', 'Lets Encrypt')]
 
 # ============================
 # Confirmation form
@@ -78,11 +79,20 @@ class NewRedirectForm(FlaskForm):
                 message='Invalid host. Only letters and numbers allowed')
         ]
     )
-    ssl = BooleanField(
-        'With SSL',
-        description='Redirect have SSL ?',
-        default=True
+    ssl = SelectField(
+        'SSL type',
+        description='What type of SSL certificate do you want to use?',
+        choices=_ssl_type, default='self',
+        validators=[
+            Required('Please select your ssl certificate type'),
+            Length(min=1, max=64)
+        ]
     )
+    #ssl = BooleanField(
+    #    'With SSL',
+    #    description='Redirect have SSL ?',
+    #    default=True
+    #)
     sslcert = TextField(
         'SSL certificate file name',
         description='Option SSL certificate file name',
@@ -134,11 +144,20 @@ class EditRedirectForm(FlaskForm):
                 message='Invalid host. Only letters and numbers allowed')
         ]
     )
-    ssl = BooleanField(
-        'With SSL',
-        description='Redirect have SSL ?',
-        default=True
+    ssl = SelectField(
+        'SSL type',
+        description='What type of SSL certificate do you want to use?',
+        choices=_ssl_type, default='self',
+        validators=[
+            Required('Please select your ssl certificate type'),
+            Length(min=1, max=64)
+        ]
     )
+    #ssl = BooleanField(
+    #    'With SSL',
+    #    description='Redirect have SSL ?',
+    #    default=True
+    #)
     sslcert = TextField(
         'SSL certificate file name',
         description='Option SSL certificate file name',

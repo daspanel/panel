@@ -40,11 +40,11 @@ def create_app(extra_config=None):
     #app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
     #app.config['DEBUG_TB_PROFILER_ENABLED'] = True
     if app.config['DEBUG'] == True:
-        print("debug enabled")
+        print(" * [DASPANEL] Debug Toolbar enabled")
         toolbar = DebugToolbarExtension()
         toolbar.init_app(app)
     else:
-        print("debug disabled")
+        print(" * [DASPANEL] Debug Toolbar disabled")
 
     # import static file manifest
     js = pkg_resources.resource_string('daspanel_web', '/templates/default/static/rev-manifest.json')
@@ -63,13 +63,10 @@ def create_app(extra_config=None):
         with app.app_context():
             db.create_all()
 
-    conf_file = os.path.join(app.config['DASPANEL_DATADIR'], 'db', 'sysconfig.json')
-    sys_config = json.loads(open(conf_file).read())
-
     with app.app_context():
         update_or_create_admin(
-            sys_config["sys"]["admin"], 
-            sys_config["sys"]["password"]
+            app.config['DASPANEL']["sys"]["admin"],
+            app.config['DASPANEL']["sys"]["password"]
         )
 
     # init Flask-Principal
@@ -101,14 +98,14 @@ def update_or_create_admin(email, password):
     """ Find existing user or create new user """
     user = User.query.filter(User.email == email).first()
     if not user:
-        print("Creating admin user: " + email)
+        print(" * [DASPANEL] Creating admin user: " + email)
         user = User(email=email,
                     password=generate_password_hash(password),
                     is_verified=True)
         db.session.add(user)
         db.session.flush()
     else:
-        print("Reseting admin user password: " + email)
+        print(" * [DASPANEL] Reseting admin user password: " + email)
         user.password = generate_password_hash(password)
         db.session.add(user)
         db.session.flush()

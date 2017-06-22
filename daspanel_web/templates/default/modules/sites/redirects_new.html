@@ -62,14 +62,14 @@
       {%- endif %}
     </div>
 
-    <div class="mui-checkbox">
-      {{ form.ssl() }} 
+    <div class="mui-select">
+      {{ form.ssl(placeholder=form.ssl.description, spellcheck="false") }}
       <label>{{ form.ssl.label.text }}</label>
       {% if form.ssl.errors -%}
-        <div class="mui--text-danger">{{ form.ssl.errors[0] }}</div>
+      <div class="mui--text-danger">{{ form.ssl.errors[0] }}</div>
       {%- endif %}
     </div>
-
+<!--
     <div class="mui-textfield">
       {{ form.sslcert(placeholder=form.sslcert.description) }} 
       <label>{{ form.sslcert.label.text }}</label>
@@ -84,7 +84,7 @@
         <div class="mui--text-danger">{{ form.sslkey.errors[0] }}</div>
       {%- endif %}
     </div>
-
+-->
     <button type="submit" class="mui-btn mui-btn--primary">Create redirect</button>
     </form>
 </div>
