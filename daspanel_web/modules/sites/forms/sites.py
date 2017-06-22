@@ -21,9 +21,12 @@ from wtforms.validators import (Required, Email, URL, EqualTo, ValidationError,
 _my_types = [
     ('generic', 'Generic site'), 
     ('grav', 'Grav'), 
-    ('wordpress', 'Wordpress')
+    ('wordpress', 'Wordpress'),
+    ('cakephp2x', 'CakePHP 2.X'),
+    ('nextcloud12x', 'Nextcloud 12.X')
 ]
 _my_runtimes = [
+    ('php71', 'PHP 7.1'), 
     ('php70', 'PHP 7.0'), 
     ('php56', 'PHP 5.6'),
     ('static', 'Static')
@@ -77,7 +80,7 @@ class NewSiteForm(FlaskForm):
     runtime = SelectField(
         'Engine',
         description='Site Engine',
-        choices=_my_runtimes, default='php70',
+        choices=_my_runtimes, default='php71',
         validators=[
             Required('Please enter an site engine'),
             Length(min=1, max=64)

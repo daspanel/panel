@@ -511,14 +511,7 @@ def site_redirects_new(recid):
     if form.validate_on_submit():
         data = request.form.to_dict()
         data.pop("csrf_token", None)
-        if 'ssl' not in data:
-            data['ssl'] = False
-        else:
-            if data['ssl'] == 'y':
-                data['ssl'] = True
-            else:
-                data['ssl']= False
-        print(data)
+        print("NEW REDIR: \n", data)
         try:
             result = api.redirects_new(id=recid, payload=data)
             flash('Redirect ' + data['hosturl'] + '.'  + data['domain'] + ' created', 'message')
@@ -584,13 +577,13 @@ def site_redirects_edit(recid, redirectid):
     if form.validate_on_submit():
         data = request.form.to_dict()
         data.pop("csrf_token", None)
-        if 'ssl' not in data:
-            data['ssl'] = False
-        else:
-            if data['ssl'] == 'y':
-                data['ssl'] = True
-            else:
-                data['ssl']= False
+        #if 'ssl' not in data:
+        #    data['ssl'] = False
+        #else:
+        #    if data['ssl'] == 'y':
+        #        data['ssl'] = True
+        #    else:
+        #        data['ssl']= False
         print(data)
 
         try:
