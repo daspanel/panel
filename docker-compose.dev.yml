@@ -85,7 +85,7 @@ services:
         image: daspanel/api-server:latest
         volumes:
             - ./data:/opt/daspanel/data
-            - /home/abner/Devel/abnerjacobsen/python/api_server:/opt/daspanel/apps/apiserver
+            - /home/abner/Devel/abnerjacobsen/work/api-server:/opt/daspanel/apps/apiserver
         networks:
             - frontend
             - backend

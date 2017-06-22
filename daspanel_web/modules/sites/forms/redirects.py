@@ -93,22 +93,22 @@ class NewRedirectForm(FlaskForm):
     #    description='Redirect have SSL ?',
     #    default=True
     #)
-    sslcert = TextField(
-        'SSL certificate file name',
-        description='Option SSL certificate file name',
-        validators=[
-            Optional(strip_whitespace=True),
-            Length(min=1, max=255)
-            ]
-    )
-    sslkey = TextField(
-        'SSL certificate key file name',
-        description='Option SSL certificate key file name',
-        validators=[
-            Optional(strip_whitespace=True),
-            Length(min=1, max=255)
-            ]
-    )
+    #sslcert = TextField(
+    #    'SSL certificate file name',
+    #    description='Option SSL certificate file name',
+    #    validators=[
+    #        Optional(strip_whitespace=True),
+    #        Length(min=1, max=255)
+    #        ]
+    #)
+    #sslkey = TextField(
+    #    'SSL certificate key file name',
+    #    description='Option SSL certificate key file name',
+    #    validators=[
+    #        Optional(strip_whitespace=True),
+    #        Length(min=1, max=255)
+    #        ]
+    #)
 
 
 class EditRedirectForm(FlaskForm):
@@ -158,21 +158,21 @@ class EditRedirectForm(FlaskForm):
     #    description='Redirect have SSL ?',
     #    default=True
     #)
-    sslcert = TextField(
-        'SSL certificate file name',
-        description='Option SSL certificate file name',
-        validators=[
-            Optional(strip_whitespace=True),
-            Length(min=1, max=255)
-            ]
-    )
-    sslkey = TextField(
-        'SSL certificate key file name',
-        description='Option SSL certificate key file name',
-        validators=[
-            Optional(strip_whitespace=True),
-            Length(min=1, max=255)
-            ]
-    )
+    #sslcert = TextField(
+    #    'SSL certificate file name',
+    #    description='Option SSL certificate file name',
+    #    validators=[
+    #        Optional(strip_whitespace=True),
+    #        Length(min=1, max=255)
+    #        ]
+    #)
+    #sslkey = TextField(
+    #    'SSL certificate key file name',
+    #    description='Option SSL certificate key file name',
+    #    validators=[
+    #        Optional(strip_whitespace=True),
+    #        Length(min=1, max=255)
+    #        ]
+    #)
 
 
