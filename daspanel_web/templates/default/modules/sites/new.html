@@ -42,20 +42,58 @@
       {%- endif %}
     </div>
     <div class="mui-select">
+      {{ form.runtime(placeholder=form.runtime.description, spellcheck="false", onchange="javascript: dynamicdropdown(this.options[this.selectedIndex].value);") }}
+      <label>{{ form.runtime.label.text }}</label>
+      {% if form.runtime.errors -%}
+      <div class="mui--text-danger">{{ form.runtime.errors[0] }}</div>
+      {%- endif %}
+    </div>
+    <div class="mui-select">
       {{ form.sitetype(placeholder=form.sitetype.description, spellcheck="false") }}
       <label>{{ form.sitetype.label.text }}</label>
       {% if form.sitetype.errors -%}
         <div class="mui--text-danger">{{ form.sitetype.errors[0] }}</div>
       {%- endif %}
     </div>
-    <div class="mui-select">
-      {{ form.runtime(placeholder=form.runtime.description, spellcheck="false") }}
-      <label>{{ form.runtime.label.text }}</label>
-      {% if form.runtime.errors -%}
-      <div class="mui--text-danger">{{ form.runtime.errors[0] }}</div>
-      {%- endif %}
-    </div>
     <button type="submit" class="mui-btn mui-btn--primary">Create site</button>
   </form>
 </div>
 {% endblock %}
+
+{% block FOOTERTAGS %}
+<script language="javascript" type="text/javascript">
+    function dynamicdropdown(listindex)
+    {
+        document.getElementById("sitetype").length = 0;
+        switch (listindex)
+            {
+                case "php71" :
+                    document.getElementById("sitetype").options[0]=new Option("Generic site PHP 7.1","generic");
+                    document.getElementById("sitetype").options[1]=new Option("Grav","grav");
+                    document.getElementById("sitetype").options[2]=new Option("Wordpress","wordpress");
+                    document.getElementById("sitetype").options[3]=new Option("CakePHP 2.X", "cakephp2x");
+                    document.getElementById("sitetype").options[4]=new Option("Nextcloud 12.X", "nextcloud12x");
+                    break;
+                case "php70" :
+                    document.getElementById("sitetype").options[0]=new Option("Generic site PHP 7.0","generic");
+                    document.getElementById("sitetype").options[1]=new Option("Grav","grav");
+                    document.getElementById("sitetype").options[2]=new Option("Wordpress","wordpress");
+                    document.getElementById("sitetype").options[3]=new Option("CakePHP 2.X", "cakephp2x");
+                    document.getElementById("sitetype").options[4]=new Option("Nextcloud 12.X", "nextcloud12x");
+                    break;
+                case "php56" :
+                    document.getElementById("sitetype").options[0]=new Option("Generic site PHP 5.6","generic");
+                    document.getElementById("sitetype").options[1]=new Option("Grav","grav");
+                    document.getElementById("sitetype").options[2]=new Option("Wordpress","wordpress");
+                    document.getElementById("sitetype").options[3]=new Option("CakePHP 2.X", "cakephp2x");
+                    document.getElementById("sitetype").options[4]=new Option("Nextcloud 12.X", "nextcloud12x");
+                    break;
+                case "static" :
+                    document.getElementById("sitetype").options[0]=new Option("Generic site","generic");
+                    break;
+            }
+        return true;
+    }
+</script>
+{% endblock %}
+
