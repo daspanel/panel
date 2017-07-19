@@ -167,6 +167,45 @@ def home():
         flash(err, 'error')
     return render_template('/modules/sites/home.html', records=result)
 
+
+@bp.route('/_get_config/<cfggroup>', methods=['GET'])
+@login_required
+def get_config(cfggroup='engines'):
+    """GET /_get_config/<cfggroup>: Get config from sysconfig specific section
+    """
+    _engine_types = {
+        'php71': [
+            ('generic', 'Generic site'), 
+            ('grav', 'Grav'), 
+            ('wordpress', 'Wordpress'),
+            ('cakephp2x', 'CakePHP 2.X'),
+            ('nextcloud12x', 'Nextcloud 12.X')
+        ],
+        'php70': [
+            ('generic', 'Generic site'), 
+            ('grav', 'Grav'), 
+            ('wordpress', 'Wordpress'),
+            ('cakephp2x', 'CakePHP 2.X'),
+            ('nextcloud12x', 'Nextcloud 12.X')
+        ],
+        'php56x': [
+            ('generic', 'Generic site'), 
+            ('grav', 'Grav'), 
+            ('wordpress', 'Wordpress'),
+            ('cakephp2x', 'CakePHP 2.X'),
+            ('nextcloud12x', 'Nextcloud 12.X')
+        ],
+        'static': [
+            ('generic', 'Generic site')
+        ]
+    }
+
+    engine = request.args.get('q', '')
+    if (not engine in _engine_types):
+        return json.dumps({'error': 'Engine not found'}), 404, {'ContentType': 'application/json'}
+
+    return json.dumps(_engine_types[engine]), 200, {'ContentType': 'application/json'}
+
 @bp.route('/new', methods=['GET', 'POST'])
 @login_required
 def new():
