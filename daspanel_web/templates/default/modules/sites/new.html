@@ -61,37 +61,61 @@
 {% endblock %}
 
 {% block FOOTERTAGS %}
-{{ h.javascript_tag(h.static('daspanel-rest-api-jquery.js')) }}
+{{ h.javascript_tag(h.static('axios.js')) }}
 
-<!-- https://stackoverflow.com/questions/23712930/dynamically-update-selectfield-based-on-another-selectfields-data 
-https://stackoverflow.com/questions/41232105/populate-wtforms-select-field-using-value-selected-from-previous-field
-http://www.jyotiranjan.in/blog/create-dynamic-drop-down-list/
-
-$.each(data, function() {
-                    options.append($("<option />").val(this).text(this));
-                })
-
-$.each(data, function(i, row) {
-  console.log(row.gender_name.S, row.gender_id.S)
-})
+<!-- 
+https://appelsiini.net/2017/accessing-api-with-javascript/
+http://codeheaven.io/how-to-use-axios-as-your-http-client/
+https://www.sitepoint.com/comparison-javascript-http-libraries/
 -->
+
 <script language="javascript" type="text/javascript">
 
-    function chgTypes(listindex) {
+function chgTypes(listindex) {
 
-        var site_types = null;
+    var myHeaders = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json'
+    };
 
-        site_types = restjQuery({
-            endpoint: "_get_config/engines?q=" + listindex
+    subSelect = document.getElementById("sitetype");
+    subSelect.length = 0;
+
+    axios
+        .get("{{ url_for('sites.get_config', cfggroup='engines') }}", {
+            params: {
+                q: listindex
+            },
+            headers: myHeaders
+        })
+        .then(function (response) {
+            //console.log("Dados: ", response.status, response.data);
+            response.data.forEach(function(item, i) {
+                //console.log("Index: ", i, "Key: ", item[0], " Value: ", item[1]);
+                subSelect.options[i]=new Option(item[1], item[0]);
+            });
+        })
+        .catch(function (error) {
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            } else if (error.request) {
+                // The request was made but no response was received
+                // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                // http.ClientRequest in node.js
+                console.log(error.request);
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error', error.message);
+            }
+            console.log(error.config);
         });
 
-        if ( site_types !== undefined && site_types.length > 0 ) {
-            console.log('Site Types: ' + site_types);
-        } else {
-            alert('Engine not found: ' + listindex);
-        }
-        return true;
-    };
+    return true;
+};
 
 </script>
 {% endblock %}
