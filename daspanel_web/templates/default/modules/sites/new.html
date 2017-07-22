@@ -42,7 +42,8 @@
       {%- endif %}
     </div>
     <div class="mui-select">
-      {{ form.runtime(placeholder=form.runtime.description, spellcheck="false", onchange="javascript: chgTypes(this.options[this.selectedIndex].value);") }}
+      <!-- {{ form.runtime(placeholder=form.runtime.description, spellcheck="false", onchange="javascript: chgTypes(this.options[this.selectedIndex].value);") }} -->
+      {{ form.runtime(placeholder=form.runtime.description, spellcheck="false") }}
       <label>{{ form.runtime.label.text }}</label>
       {% if form.runtime.errors -%}
       <div class="mui--text-danger">{{ form.runtime.errors[0] }}</div>
@@ -71,20 +72,38 @@ https://www.sitepoint.com/comparison-javascript-http-libraries/
 
 <script language="javascript" type="text/javascript">
 
-function chgTypes(listindex) {
+function bindOnchange(id, handler) {
+    var selMaster = document.getElementById(id);
+    if (selMaster.addEventListener) {
+        // DOM2 standard
+        selMaster.addEventListener("change", handler, false);
+    }
+    else if (box.attachEvent) {
+        // IE fallback
+        selMaster.attachEvent("onchange", handler);
+    }
+    else {
+        // DOM0 fallback
+        selMaster.onchange = handler;
+    }
+}
+
+bindOnchange("runtime", chgTypes);
+
+function chgTypes() {
 
     var myHeaders = {
-        'Content-type': 'application/json',
-        'Accept': 'application/json'
+        "Content-type": "application/json",
+        "Accept": "application/json"
     };
+    var master = document.getElementById("runtime");
+    var child = document.getElementById("sitetype");
 
-    subSelect = document.getElementById("sitetype");
-    subSelect.length = 0;
-
+    child.length = 0;
     axios
         .get("{{ url_for('sites.get_config', cfggroup='engines') }}", {
             params: {
-                q: listindex
+                q: master.options[master.selectedIndex].value
             },
             headers: myHeaders
         })
@@ -92,7 +111,7 @@ function chgTypes(listindex) {
             //console.log("Dados: ", response.status, response.data);
             response.data.forEach(function(item, i) {
                 //console.log("Index: ", i, "Key: ", item[0], " Value: ", item[1]);
-                subSelect.options[i]=new Option(item[1], item[0]);
+                child.options[i]=new Option(item[1], item[0]);
             });
         })
         .catch(function (error) {
@@ -115,7 +134,57 @@ function chgTypes(listindex) {
         });
 
     return true;
-};
+}
+
+function setEngines() {
+
+    var myHeaders = {
+        "Content-type": "application/json",
+        "Accept": "application/json"
+    };
+    var master = document.getElementById("runtime");
+
+    master.length = 0;
+    axios
+        .get("{{ url_for('sites.get_engines') }}", {
+            headers: myHeaders
+        })
+        .then(function (response) {
+            console.log("Dados: ", response.status, response.data);
+            response.data.forEach(function(item, i) {
+                //console.log("Index: ", i, "Key: ", item[0], " Value: ", item[1]);
+                master.options[i]=new Option(item[1], item[0]);
+            });
+        })
+        .catch(function (error) {
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            } else if (error.request) {
+                // The request was made but no response was received
+                // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                // http.ClientRequest in node.js
+                console.log(error.request);
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error', error.message);
+            }
+            console.log(error.config);
+        });
+
+    return true;
+}
+
+window.onload = function() {
+    setEngines();
+    chgTypes();
+}
+//$(document).ready(function() {
+//    alert('This is executed after all elements are available.');
+//});
 
 </script>
 {% endblock %}

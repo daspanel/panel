@@ -167,6 +167,30 @@ def home():
         flash(err, 'error')
     return render_template('/modules/sites/home.html', records=result)
 
+@bp.route('/_get_engines', methods=['GET'])
+@login_required
+def get_engines():
+    """GET /_get_engines: Get engines avaiable
+    """
+    #def_cfg = {}
+    #def_cfg['engines'] = []
+    # def_cfg = json.loads(    
+    #{"engines": [{"sitetypes": [{"id": "static", "desc": "Static sites"}, {"id": "wordpress", "desc": "Wordpress sites"}], "id": "php70", "desc": "PHP 7.0"}, {"sitetypes": [{"id": "grav", "desc": "Grav sites"}, {"id": "wordpress", "desc": "Wordpress sites"}], "id": "php71", "desc": "PHP 7.1"}, {"sitetypes": [{"id": "static", "desc": "Static sites"}, {"id": "wordpress", "desc": "Wordpress sites"}], "id": "php70", "desc": "PHP 7.0"}]}
+    #_engines = current_app.config['DASPANEL']["sys"]["admin"]
+    #jmespath.search("engines[?id=='php70']", def_cfg)
+    #jmespath.search("engines[*].[id,desc]", def_cfg)
+    #jmespath.search("engines[?id=='php70'][id, desc]", def_cfg)
+    #jmespath.search("engines[?id=='php70'].{key: id, value: desc}", def_cfg)
+    #jmespath.search("engines[?id=='php70'].sitetypes[].[id, desc]", def_cfg)
+    _engines = [
+            ('python36', 'Python 3.6'), 
+            ('php71', 'PHP 7.1'), 
+            ('php70', 'PHP 7.0'), 
+            ('php56', 'PHP 5.6'),
+            ('static', 'Static')
+    ]
+
+    return json.dumps(_engines), 200, {'ContentType': 'application/json'}
 
 @bp.route('/_get_config/<cfggroup>', methods=['GET'])
 @login_required
@@ -175,28 +199,28 @@ def get_config(cfggroup='engines'):
     """
     _engine_types = {
         'php71': [
-            ('generic', 'Generic site'), 
+            ('generic', 'Generic site - php71'), 
             ('grav', 'Grav'), 
             ('wordpress', 'Wordpress'),
             ('cakephp2x', 'CakePHP 2.X'),
             ('nextcloud12x', 'Nextcloud 12.X')
         ],
         'php70': [
-            ('generic', 'Generic site'), 
+            ('generic', 'Generic site - php70'), 
             ('grav', 'Grav'), 
             ('wordpress', 'Wordpress'),
             ('cakephp2x', 'CakePHP 2.X'),
             ('nextcloud12x', 'Nextcloud 12.X')
         ],
-        'php56x': [
-            ('generic', 'Generic site'), 
+        'php56': [
+            ('generic', 'Generic site - php56'), 
             ('grav', 'Grav'), 
             ('wordpress', 'Wordpress'),
             ('cakephp2x', 'CakePHP 2.X'),
             ('nextcloud12x', 'Nextcloud 12.X')
         ],
         'static': [
-            ('generic', 'Generic site')
+            ('generic', 'Generic site - static')
         ]
     }
 
