@@ -15,22 +15,9 @@ from flask_wtf import FlaskForm
 from wtforms import (TextField, SelectField)
 from wtforms.validators import (Required, Email, URL, EqualTo, ValidationError,
                                 StopValidation, Length)
-#from wtforms.widgets import PasswordInput, CheckboxInput
-#from daspanel_web.lib.util import verify_password_hash
 
-_my_types = [
-    ('generic', 'Generic site'), 
-    ('grav', 'Grav'), 
-    ('wordpress', 'Wordpress'),
-    ('cakephp2x', 'CakePHP 2.X'),
-    ('nextcloud12x', 'Nextcloud 12.X')
-]
-_my_runtimes = [
-    ('php71', 'PHP 7.1'), 
-    ('php70', 'PHP 7.0'), 
-    ('php56', 'PHP 5.6'),
-    ('static', 'Static')
-]
+from daspanel_web.lib.wtform_helpers import NoPreValidationSelectField
+
 _my_confirmation = [('no', 'NO'), ('yes', 'YES')]
 
 # ============================
@@ -77,19 +64,19 @@ class NewVersionForm(FlaskForm):
             Length(min=1, max=255)
         ]
     )
-    sitetype = SelectField(
+    sitetype = NoPreValidationSelectField(
         'Type',
         description='Site Type',
-        choices=_my_types, default='generic',
+        choices=[],
         validators=[
             Required('Please enter an site type'),
             Length(min=1, max=64)
             ]
     )
-    runtime = SelectField(
+    runtime = NoPreValidationSelectField(
         'Engine',
         description='Site Engine',
-        choices=_my_runtimes, default='php70',
+        choices=[],
         validators=[
             Required('Please enter an site engine'),
             Length(min=1, max=64)
@@ -116,19 +103,19 @@ class EditVersionForm(FlaskForm):
             Length(min=1, max=255)
         ]
     )
-    sitetype = SelectField(
+    sitetype = NoPreValidationSelectField(
         'Type',
         description='Site Type',
-        choices=_my_types, default='generic',
+        choices=[],
         validators=[
             Required('Please enter an site type'),
             Length(min=1, max=64)
             ]
     )
-    runtime = SelectField(
+    runtime = NoPreValidationSelectField(
         'Engine',
         description='Site Engine',
-        choices=_my_runtimes, default='php70',
+        choices=[],
         validators=[
             Required('Please enter an site engine'),
             Length(min=1, max=64)

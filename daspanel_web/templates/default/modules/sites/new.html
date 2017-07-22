@@ -42,7 +42,6 @@
       {%- endif %}
     </div>
     <div class="mui-select">
-      <!-- {{ form.runtime(placeholder=form.runtime.description, spellcheck="false", onchange="javascript: chgTypes(this.options[this.selectedIndex].value);") }} -->
       {{ form.runtime(placeholder=form.runtime.description, spellcheck="false") }}
       <label>{{ form.runtime.label.text }}</label>
       {% if form.runtime.errors -%}
@@ -71,6 +70,7 @@ https://www.sitepoint.com/comparison-javascript-http-libraries/
 -->
 
 <script language="javascript" type="text/javascript">
+{% include "/modules/sites/js/sitetypes.js" %}
 
 function bindOnchange(id, handler) {
     var selMaster = document.getElementById(id);
@@ -88,103 +88,13 @@ function bindOnchange(id, handler) {
     }
 }
 
-bindOnchange("runtime", chgTypes);
-
-function chgTypes() {
-
-    var myHeaders = {
-        "Content-type": "application/json",
-        "Accept": "application/json"
-    };
-    var master = document.getElementById("runtime");
-    var child = document.getElementById("sitetype");
-
-    child.length = 0;
-    axios
-        .get("{{ url_for('sites.get_config', cfggroup='engines') }}", {
-            params: {
-                q: master.options[master.selectedIndex].value
-            },
-            headers: myHeaders
-        })
-        .then(function (response) {
-            //console.log("Dados: ", response.status, response.data);
-            response.data.forEach(function(item, i) {
-                //console.log("Index: ", i, "Key: ", item[0], " Value: ", item[1]);
-                child.options[i]=new Option(item[1], item[0]);
-            });
-        })
-        .catch(function (error) {
-            if (error.response) {
-                // The request was made and the server responded with a status code
-                // that falls out of the range of 2xx
-                console.log(error.response.data);
-                console.log(error.response.status);
-                console.log(error.response.headers);
-            } else if (error.request) {
-                // The request was made but no response was received
-                // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-                // http.ClientRequest in node.js
-                console.log(error.request);
-            } else {
-                // Something happened in setting up the request that triggered an Error
-                console.log('Error', error.message);
-            }
-            console.log(error.config);
-        });
-
-    return true;
-}
-
-function setEngines() {
-
-    var myHeaders = {
-        "Content-type": "application/json",
-        "Accept": "application/json"
-    };
-    var master = document.getElementById("runtime");
-
-    master.length = 0;
-    axios
-        .get("{{ url_for('sites.get_engines') }}", {
-            headers: myHeaders
-        })
-        .then(function (response) {
-            console.log("Dados: ", response.status, response.data);
-            response.data.forEach(function(item, i) {
-                //console.log("Index: ", i, "Key: ", item[0], " Value: ", item[1]);
-                master.options[i]=new Option(item[1], item[0]);
-            });
-        })
-        .catch(function (error) {
-            if (error.response) {
-                // The request was made and the server responded with a status code
-                // that falls out of the range of 2xx
-                console.log(error.response.data);
-                console.log(error.response.status);
-                console.log(error.response.headers);
-            } else if (error.request) {
-                // The request was made but no response was received
-                // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-                // http.ClientRequest in node.js
-                console.log(error.request);
-            } else {
-                // Something happened in setting up the request that triggered an Error
-                console.log('Error', error.message);
-            }
-            console.log(error.config);
-        });
-
-    return true;
-}
-
-window.onload = function() {
+// Get engines avaiable on page load
+window.onload = function init_selects() {
     setEngines();
-    chgTypes();
 }
-//$(document).ready(function() {
-//    alert('This is executed after all elements are available.');
-//});
+
+// Change sitetypes options based on engine selection
+bindOnchange("runtime", chgTypes);
 
 </script>
 {% endblock %}

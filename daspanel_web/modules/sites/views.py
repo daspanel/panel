@@ -26,6 +26,13 @@ bp = Blueprint('sites', __name__)
 
 API_SERVER = 'http://daspanel-api:8080/1.0'
 
+_engines = [
+    ('php71', 'PHP 7.1'), 
+    ('php70', 'PHP 7.0'), 
+    ('php56', 'PHP 5.6'),
+    ('static', 'Static')
+]
+
 class VersionsApi(GenericAPI):
     add_version  = APIMethod('post', '/{id}/versions')
     del_version  = APIMethod('delete', '/{id}/versions/{version_id}')
@@ -182,13 +189,6 @@ def get_engines():
     #jmespath.search("engines[?id=='php70'][id, desc]", def_cfg)
     #jmespath.search("engines[?id=='php70'].{key: id, value: desc}", def_cfg)
     #jmespath.search("engines[?id=='php70'].sitetypes[].[id, desc]", def_cfg)
-    _engines = [
-            ('python36', 'Python 3.6'), 
-            ('php71', 'PHP 7.1'), 
-            ('php70', 'PHP 7.0'), 
-            ('php56', 'PHP 5.6'),
-            ('static', 'Static')
-    ]
 
     return json.dumps(_engines), 200, {'ContentType': 'application/json'}
 
@@ -236,6 +236,7 @@ def new():
     """GET /new: render homepage
     """
     form = NewSiteForm()
+    form.runtime.choices = _engines
     if form.validate_on_submit():
         data = request.form.to_dict()
         data.pop("csrf_token", None)

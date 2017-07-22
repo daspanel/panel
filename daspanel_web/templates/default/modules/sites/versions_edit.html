@@ -1,6 +1,4 @@
 {% extends "/shared/modal-list-layout.html" %}
-
-
 {% block HEADERTAGS %}
 {{ super() }} 
 <style>
@@ -54,21 +52,60 @@
       {%- endif %}
     </div>
     <div class="mui-select">
-      {{ form.sitetype(placeholder=form.sitetype.description, spellcheck="false") }}
-      <label>{{ form.sitetype.label.text }}</label>
-      {% if form.sitetype.errors -%}
-        <div class="mui--text-danger">{{ form.sitetype.errors[0] }}</div>
-      {%- endif %}
-    </div>
-    <div class="mui-select">
       {{ form.runtime(placeholder=form.runtime.description, spellcheck="false") }}
       <label>{{ form.runtime.label.text }}</label>
       {% if form.runtime.errors -%}
       <div class="mui--text-danger">{{ form.runtime.errors[0] }}</div>
       {%- endif %}
     </div>
+    <div class="mui-select">
+      {{ form.sitetype(placeholder=form.sitetype.description, spellcheck="false") }}
+      <label>{{ form.sitetype.label.text }}</label>
+      {% if form.sitetype.errors -%}
+        <div class="mui--text-danger">{{ form.sitetype.errors[0] }}</div>
+      {%- endif %}
+    </div>
 
     <button type="submit" class="mui-btn mui-btn--primary">Update version</button>
     </form>
 </div>
+{% endblock %}
+
+{% block FOOTERTAGS %}
+{{ h.javascript_tag(h.static('axios.js')) }}
+
+<!-- 
+https://appelsiini.net/2017/accessing-api-with-javascript/
+http://codeheaven.io/how-to-use-axios-as-your-http-client/
+https://www.sitepoint.com/comparison-javascript-http-libraries/
+-->
+
+<script language="javascript" type="text/javascript">
+{% include "/modules/sites/js/sitetypes.js" %}
+
+function bindOnchange(id, handler) {
+    var selMaster = document.getElementById(id);
+    if (selMaster.addEventListener) {
+        // DOM2 standard
+        selMaster.addEventListener("change", handler, false);
+    }
+    else if (box.attachEvent) {
+        // IE fallback
+        selMaster.attachEvent("onchange", handler);
+    }
+    else {
+        // DOM0 fallback
+        selMaster.onchange = handler;
+    }
+}
+
+// Get engines avaiable on page load
+window.onload = function init_selects() {
+    setEngines("{{ form.runtime.data }}", "{{ form.sitetype.data }}");
+}
+
+// Change sitetypes options based on engine selection
+bindOnchange("runtime", chgTypes);
+
+</script>
 {% endblock %}
