@@ -14,18 +14,24 @@ function chgTypes(select_type) {
 
     child.length = 0;
     axios
-        .get("{{ url_for('sites.get_config', cfggroup='engines') }}", {
-            params: {
-                q: master.options[master.selectedIndex].value
-            },
+        //.get("\{\{ url_for('sites.get_sitetypes', cfggroup='engines') \}\}", {
+        //    params: {
+        //        q: master.options[master.selectedIndex].value
+        //    },
+        //    headers: myHeaders
+        //})
+
+        // https://stackoverflow.com/questions/10314800/flask-url-for-urls-in-javascript
+        .get("{{ url_for('sites.get_sitetypes', engine='REPLACE') }}".replace("REPLACE", master.options[master.selectedIndex].value), {
             headers: myHeaders
         })
+
         .then(function (response) {
             //console.log("Dados: ", response.status, response.data);
             response.data.forEach(function(item, i) {
                 //console.log("Index: ", i, "Key: ", item[0], " Value: ", item[1]);
-                child.options[i]=new Option(item[1], item[0]);
-                if (item[0] === current_type) {
+                child.options[i]=new Option(item.description, item.sitetype);
+                if (item.sitetype === current_type) {
                     child.options[i].selected = true;
                     child.value = current_type;
                 }
@@ -71,14 +77,14 @@ function setEngines(current_engine, current_type) {
             //console.log("Dados: ", response.status, response.data);
             response.data.forEach(function(item, i) {
                 //console.log("Index: ", i, "Key: ", item[0], " Value: ", item[1]);
-                master.options[i]=new Option(item[1], item[0]);
+                master.options[i]=new Option(item.description, item.runtime);
             });
             // If must set current select engine
             if (current_engine !== undefined) {
                 master.value = current_engine;
             }
             // Now update the sitetype's select because Axios call is defered
-            chgTypes();
+            //chgTypes();
             // If must set current select engine
             if (current_type !== undefined && typeof current_type === 'string') {
                 chgTypes(current_type);

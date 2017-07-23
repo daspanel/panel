@@ -18,22 +18,6 @@ from wtforms.validators import (Required, Email, URL, EqualTo, ValidationError,
 
 from daspanel_web.lib.wtform_helpers import NoPreValidationSelectField
 
-#from wtforms.widgets import PasswordInput, CheckboxInput
-#from daspanel_web.lib.util import verify_password_hash
-
-#_my_types = [
-#    ('generic', 'Generic site'), 
-#    ('grav', 'Grav'), 
-#    ('wordpress', 'Wordpress'),
-#    ('cakephp2x', 'CakePHP 2.X'),
-#    ('nextcloud12x', 'Nextcloud 12.X')
-#]
-#_my_runtimes = [
-#    ('php71', 'PHP 7.1'), 
-#    ('php70', 'PHP 7.0'), 
-#    ('php56', 'PHP 5.6'),
-#    ('static', 'Static')
-#]
 _my_confirmation = [('no', 'NO'), ('yes', 'YES')]
 
 # ============================

@@ -62,7 +62,7 @@
 
 {% block FOOTERTAGS %}
 {{ h.javascript_tag(h.static('axios.js')) }}
-
+{{ h.javascript_tag(h.static('daspanel-util.js')) }}
 <!-- 
 https://appelsiini.net/2017/accessing-api-with-javascript/
 http://codeheaven.io/how-to-use-axios-as-your-http-client/
@@ -72,28 +72,12 @@ https://www.sitepoint.com/comparison-javascript-http-libraries/
 <script language="javascript" type="text/javascript">
 {% include "/modules/sites/js/sitetypes.js" %}
 
-function bindOnchange(id, handler) {
-    var selMaster = document.getElementById(id);
-    if (selMaster.addEventListener) {
-        // DOM2 standard
-        selMaster.addEventListener("change", handler, false);
-    }
-    else if (box.attachEvent) {
-        // IE fallback
-        selMaster.attachEvent("onchange", handler);
-    }
-    else {
-        // DOM0 fallback
-        selMaster.onchange = handler;
-    }
-}
-
 // Get engines avaiable on page load
 window.onload = function init_selects() {
     setEngines();
 }
 
-// Change sitetypes options based on engine selection
+// Dynamic change sitetypes options based on engine selection
 bindOnchange("runtime", chgTypes);
 
 </script>

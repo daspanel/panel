@@ -26,13 +26,6 @@ bp = Blueprint('sites', __name__)
 
 API_SERVER = 'http://daspanel-api:8080/1.0'
 
-_engines = [
-    ('php71', 'PHP 7.1'), 
-    ('php70', 'PHP 7.0'), 
-    ('php56', 'PHP 5.6'),
-    ('static', 'Static')
-]
-
 class VersionsApi(GenericAPI):
     add_version  = APIMethod('post', '/{id}/versions')
     del_version  = APIMethod('delete', '/{id}/versions/{version_id}')
@@ -57,7 +50,6 @@ class VersionsApi(GenericAPI):
         
     def finalize(self, name, result, *args, **kwargs):
         if self.throw_on_error and result.status_code >= 400:
-            print(result.content)
             raise APIError(json.loads(result.content)['detail'], response=result.__dict__)
         if self.load_json and not result.status_code == 204:
             return json.loads(result.content)
@@ -88,7 +80,6 @@ class HttpServiceApi(GenericAPI):
         
     def finalize(self, name, result, *args, **kwargs):
         if self.throw_on_error and result.status_code >= 400:
-            print(result.content)
             raise APIError(json.loads(result.content)['detail'], response=result.__dict__)
         if self.load_json and not result.status_code == 204:
             return json.loads(result.content)
@@ -116,7 +107,7 @@ class ContentApi(GenericAPI):
         
     def finalize(self, name, result, *args, **kwargs):
         if self.throw_on_error and result.status_code >= 400:
-            print(result.content)
+            #print(result.content)
             raise APIError(json.loads(result.content)['detail'], response=result.__dict__)
         if self.load_json:
             return json.loads(result.content)
@@ -154,7 +145,6 @@ class SitesApi(GenericAPI):
         
     def finalize(self, name, result, *args, **kwargs):
         if self.throw_on_error and result.status_code >= 400:
-            print(result.content)
             raise APIError(json.loads(result.content)['detail'], response=result.__dict__)
         if self.load_json:
             return json.loads(result.content)
@@ -190,45 +180,19 @@ def get_engines():
     #jmespath.search("engines[?id=='php70'].{key: id, value: desc}", def_cfg)
     #jmespath.search("engines[?id=='php70'].sitetypes[].[id, desc]", def_cfg)
 
-    return json.dumps(_engines), 200, {'ContentType': 'application/json'}
+    return json.dumps(current_app.config['DASPANEL']['engines']), 200, {'ContentType': 'application/json'}
 
-@bp.route('/_get_config/<cfggroup>', methods=['GET'])
+@bp.route('/_get_sitetypes/<engine>', methods=['GET'])
 @login_required
-def get_config(cfggroup='engines'):
+def get_sitetypes(engine):
     """GET /_get_config/<cfggroup>: Get config from sysconfig specific section
     """
-    _engine_types = {
-        'php71': [
-            ('generic', 'Generic site - php71'), 
-            ('grav', 'Grav'), 
-            ('wordpress', 'Wordpress'),
-            ('cakephp2x', 'CakePHP 2.X'),
-            ('nextcloud12x', 'Nextcloud 12.X')
-        ],
-        'php70': [
-            ('generic', 'Generic site - php70'), 
-            ('grav', 'Grav'), 
-            ('wordpress', 'Wordpress'),
-            ('cakephp2x', 'CakePHP 2.X'),
-            ('nextcloud12x', 'Nextcloud 12.X')
-        ],
-        'php56': [
-            ('generic', 'Generic site - php56'), 
-            ('grav', 'Grav'), 
-            ('wordpress', 'Wordpress'),
-            ('cakephp2x', 'CakePHP 2.X'),
-            ('nextcloud12x', 'Nextcloud 12.X')
-        ],
-        'static': [
-            ('generic', 'Generic site - static')
-        ]
-    }
+    #engine = request.args.get('q', '')
+    for i, rec in enumerate(current_app.config['DASPANEL']['engines']):
+        if rec['runtime'] == engine:
+            return json.dumps(rec['sitetypes']), 200, {'ContentType': 'application/json'}
 
-    engine = request.args.get('q', '')
-    if (not engine in _engine_types):
-        return json.dumps({'error': 'Engine not found'}), 404, {'ContentType': 'application/json'}
-
-    return json.dumps(_engine_types[engine]), 200, {'ContentType': 'application/json'}
+    return json.dumps({'error': 'Engine not found'}), 404, {'ContentType': 'application/json'}
 
 @bp.route('/new', methods=['GET', 'POST'])
 @login_required
@@ -236,7 +200,7 @@ def new():
     """GET /new: render homepage
     """
     form = NewSiteForm()
-    form.runtime.choices = _engines
+    #form.runtime.choices = _engines
     if form.validate_on_submit():
         data = request.form.to_dict()
         data.pop("csrf_token", None)
@@ -288,7 +252,6 @@ def edit(recid):
         result = {}
         flash(str(err), 'error')
         return redirect(url_for('sites.home'))
-    print(result)
     form = EditSiteForm(request.form, **result)
     if form.validate_on_submit():
         data = request.form.to_dict()
@@ -321,17 +284,14 @@ def content_fromhttp(recid):
     form.version.choices = versions
     #form.version.default = result['active_version']
     #form.process()
-    print(request.form.to_dict())
     if form.validate_on_submit():
         data = request.form.to_dict()
-        print(data)
         data.pop("csrf_token", None)
         try:
             sitename = result['sitedescription']
             api_content = ContentApi(server=API_SERVER, auth=current_app.config['DASPANEL_SYS_UUID'])
             upload_result = api_content.http_zip(id=recid, payload=data)
             flash('Site content for \"' + sitename + '\" version \"' + data['version'] + '\" uploaded to: ' + upload_result['location'], 'message')
-            print(upload_result)
             return redirect(url_for('sites.home'))
         except APIError as err:
             result = {}
@@ -409,7 +369,6 @@ def site_versions(recid):
         result = {}
         flash(str(err), 'error')
         return redirect(url_for('sites.home'))
-    print(result)
 
     return render_template('/modules/sites/versions.html', records=result, site=result)
 
@@ -495,7 +454,6 @@ def site_versions_edit(recid, versionid):
     form = EditVersionForm(request.form, **result)
     if form.validate_on_submit():
         data = request.form.to_dict()
-        print(data)
         data.pop("csrf_token", None)
         try:
             result = versions_api.edit_version(id=recid, version_id=versionid, payload=data)
@@ -551,7 +509,6 @@ def site_redirects(recid):
         result = {}
         flash(str(err), 'error')
         return redirect(url_for('sites.home'))
-    print(result)
 
     return render_template('/modules/sites/redirects.html', records=result, site=result)
 
@@ -575,7 +532,6 @@ def site_redirects_new(recid):
     if form.validate_on_submit():
         data = request.form.to_dict()
         data.pop("csrf_token", None)
-        print("NEW REDIR: \n", data)
         try:
             result = api.redirects_new(id=recid, payload=data)
             flash('Redirect ' + data['hosturl'] + '.'  + data['domain'] + ' created', 'message')
@@ -648,7 +604,6 @@ def site_redirects_edit(recid, redirectid):
         #        data['ssl'] = True
         #    else:
         #        data['ssl']= False
-        print(data)
 
         try:
             result = api.redirects_edit(id=recid, redirect_id=redirectid, payload=data)
