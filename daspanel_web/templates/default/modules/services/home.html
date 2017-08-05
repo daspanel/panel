@@ -20,6 +20,29 @@
     <div class="mui--appbar-height"></div>
     <div class="mui-container-fluid">
         <div class="mui-row mui--z1">
+            <!-- BOF File manager -->
+            <div class="mui-col-xs-12 mui-col-sm-12 mui-col-md-6 mui-col-lg-6 mui-col-xl-4">
+  	            <article class="cssui-usercard cssui-usercard_skin--material cssui-usercard_skin--material_mod--indigo">
+                    <div class="cssui-usercard__body">
+                        <header class="cssui-usercard__header">
+				            <img src="/static/images/file-manager.png" class="cssui-usercard__avatar" alt="Avatar">
+                            <div class="cssui-usercard__header-info truncate">
+                                <h3 title="Database Manager" class="cssui-usercard__name">File Manager</h3>
+                                <span title="Adminer" class="cssui-usercard__post">Rich File Manager</span>
+                            </div>
+                        </header>
+                        <div class="cssui-usercard__content">
+                        </div>
+                    </div>
+                    <footer class="cssui-usercard__footer">
+                        <div>
+                            <button onclick="window.open('https://fm.svc.{{ config.DASPANEL.sys.hostname }}');" class="mui-btn mui-btn--small mui-btn--primary mui-btn--flat">Open</button>
+                        </div>
+                    </footer>
+	            </article>        
+            </div>
+            <!-- EOF File manager -->
+
             <!-- BOF Database manager -->
             <div class="mui-col-xs-12 mui-col-sm-12 mui-col-md-6 mui-col-lg-6 mui-col-xl-4">
   	            <article class="cssui-usercard cssui-usercard_skin--material cssui-usercard_skin--material_mod--indigo">
@@ -43,14 +66,14 @@
             </div>
             <!-- EOF Database manager -->
 
-            <!-- BOF File manager -->
+            <!-- BOF S3 manager -->
             <div class="mui-col-xs-12 mui-col-sm-12 mui-col-md-6 mui-col-lg-6 mui-col-xl-4">
   	            <article class="cssui-usercard cssui-usercard_skin--material cssui-usercard_skin--material_mod--indigo">
                     <div class="cssui-usercard__body">
                         <header class="cssui-usercard__header">
 				            <img src="/static/images/file-manager.png" class="cssui-usercard__avatar" alt="Avatar">
                             <div class="cssui-usercard__header-info truncate">
-                                <h3 title="File Manager" class="cssui-usercard__name">File Manager</h3>
+                                <h3 title="File Manager" class="cssui-usercard__name">S3 Storage</h3>
                                 <span title="Minio" class="cssui-usercard__post">Minio</span>
                             </div>
                         </header>
@@ -64,7 +87,7 @@
                     </footer>
 	            </article>        
             </div>
-            <!-- EOF File manager -->
+            <!-- EOF S3 manager -->
 
             <!-- BOF Mail catcher -->
             <div class="mui-col-xs-12 mui-col-sm-12 mui-col-md-6 mui-col-lg-6 mui-col-xl-4">
