@@ -1,6 +1,6 @@
 import datetime
 
-from daspanel_web.meta import db
+from meta import db
 
 
 # ================================

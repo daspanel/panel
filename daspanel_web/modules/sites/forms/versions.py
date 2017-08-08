@@ -16,7 +16,7 @@ from wtforms import (TextField, SelectField)
 from wtforms.validators import (Required, Email, URL, EqualTo, ValidationError,
                                 StopValidation, Length)
 
-from daspanel_web.lib.wtform_helpers import NoPreValidationSelectField
+from lib.wtform_helpers import NoPreValidationSelectField
 
 _my_confirmation = [('no', 'NO'), ('yes', 'YES')]
 

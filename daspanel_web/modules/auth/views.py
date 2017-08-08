@@ -9,12 +9,12 @@ from flask_mail import Message
 from flask_wtf import FlaskForm
 from premailer import transform
 
-from daspanel_web.meta import db, mail
+from meta import db, mail
 from .forms import (LoginForm, CreateAccountForm, ForgotPasswordForm,
                             ResetPasswordForm)
 from .models import (User, EmailVerificationRequest, 
                              PasswordResetRequest)
-from daspanel_web.lib.util import generate_password_hash
+from lib.util import generate_password_hash
 
 
 bp = Blueprint('auth', __name__)

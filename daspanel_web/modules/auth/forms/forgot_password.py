@@ -8,7 +8,7 @@ from wtforms.validators import (Required, Email, URL, EqualTo, ValidationError,
                                 StopValidation)
 from wtforms.widgets import PasswordInput, CheckboxInput
 from ..models import User
-from daspanel_web.lib.util import verify_password_hash
+from lib.util import verify_password_hash
 
 
 # ============================
