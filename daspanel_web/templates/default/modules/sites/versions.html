@@ -66,6 +66,10 @@
                 </div>
                 <br>
                 <div class="mui-col-xs-12 mui--text-dark mui--text-menu mui--text-center">
+                    <a href="" onclick="window.open('https://fm.svc.{{ config.DASPANEL.sys.hostname }}/?exclusiveFolder=/{{ v.directory }}');">Files</a>
+                </div>
+                <br>
+                <div class="mui-col-xs-12 mui--text-dark mui--text-menu mui--text-center">
                     <a href="{{ url_for('sites.site_versions_clone', recid=site._cuid, versionid=v._cuid) }}">Clone</a>
                 </div>
 
