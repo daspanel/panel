@@ -21,7 +21,7 @@
         <a id="appbar-more-vert" href="{{ url_for('sites.site_redirects', recid=site._cuid) }}" class="sidedrawer-toggle mui--hidden-xs mui--hidden-sm">
             <i class="material-icons mui--text-title">arrow_back</i>
         </a>
-        <span class="mui--text-title">Edit Redirect</span>
+        <span class="mui--text-title">Edit Domain Mapping</span>
       </td>
     </tr>
   </table>
@@ -35,7 +35,7 @@
     <div class="mui--text-dark-secondary">{{ site.sitedescription }}</div>
     <br>
     <form method="post" action="{{ url_for('sites.site_redirects_edit', recid=site._cuid, redirectid=redirectid) }}" role="form">
-    <legend>Edit site redirect</legend>
+    <legend>Edit domain mapping</legend>
     {{ form.csrf_token }}
     <div class="mui-select">
       {{ form.version(placeholder=form.version.description,
@@ -69,7 +69,7 @@
       <div class="mui--text-danger">{{ form.ssl.errors[0] }}</div>
       {%- endif %}
     </div>
-    <button type="submit" class="mui-btn mui-btn--primary">Update redirect</button>
+    <button type="submit" class="mui-btn mui-btn--primary">Update domain mapping</button>
     </form>
 </div>
 {% endblock %}

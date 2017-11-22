@@ -121,5 +121,13 @@ class EditVersionForm(FlaskForm):
             Length(min=1, max=64)
             ]
     )
+    root_dir = TextField(
+        'Root Directory',
+        description='Home directory served by the http server within the version directory',
+        validators=[
+            Required('Please enter root directory'),
+            Length(min=1, max=255)
+        ]
+    )
 
 

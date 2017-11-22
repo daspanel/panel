@@ -70,6 +70,10 @@
                 </div>
                 <br>
                 <div class="mui-col-xs-12 mui--text-dark mui--text-menu mui--text-center">
+                    <a href="" onclick="window.open('https://_ds.{{ v._cuid }}.v.{{ site.urlprefix }}.sites.{{ config.DASPANEL.sys.hostname }}/shell/?arg={{ site._cuid }}&arg={{ v.directory }}{{ v.root_dir }}');">Console</a>
+                </div>
+                <br>
+                <div class="mui-col-xs-12 mui--text-dark mui--text-menu mui--text-center">
                     <a href="{{ url_for('sites.site_versions_clone', recid=site._cuid, versionid=v._cuid) }}">Clone</a>
                 </div>
 
@@ -89,6 +93,9 @@
                 <br><br>
                 <div class="mui-col-xs-12 mui--text-dark-secondary mui--text-caption">Directory</div>
                 <div class="mui-col-xs-12 mui--text-dark mui--text-body1">{{ v.directory }}</div>
+                <br><br>
+                <div class="mui-col-xs-12 mui--text-dark-secondary mui--text-caption">Root Directory</div>
+                <div class="mui-col-xs-12 mui--text-dark mui--text-body1">{{ v.root_dir }}</div>
                 <br><br><br>
                 <div class="mui-col-xs-12 mui--text-dark-secondary mui--text-caption">Created</div>
                 <div class="mui-col-xs-12 mui--text-dark mui--text-body1">{{ v.date }}</div>

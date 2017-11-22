@@ -21,7 +21,7 @@
         <a id="appbar-more-vert" href="{{ url_for('sites.home') }}" class="sidedrawer-toggle mui--hidden-xs mui--hidden-sm">
             <i class="material-icons mui--text-title">arrow_back</i>
         </a>
-        <span class="mui--text-title">Redirects</span>
+        <span class="mui--text-title">Domain Mappings</span>
       </td>
       <td class="mui--text-right">
           <a id="appbar-more-vert" href="{{ url_for('sites.site_redirects', recid=site._cuid) }}"><i class="material-icons mui--text-title">refresh</i></a>
@@ -61,6 +61,11 @@
                     <a href="" onclick="window.open('https://fm.svc.{{ config.DASPANEL.sys.hostname }}/?exclusiveFolder=/{{ site.versions|selectattr('_cuid','equalto',v.version)|map(attribute='directory')|first }}');">Files</a>
                 </div>
                 <br>
+                <div class="mui-col-xs-12 mui--text-dark mui--text-menu mui--text-center">
+                    <a href="" onclick="window.open('https://_ds.{{ v.hosturl }}.{{ v.domain }}/shell/?arg={{ site._cuid }}&arg={{ site.versions|selectattr('_cuid','equalto',v.version)|map(attribute='directory')|first }}{{ site.versions|selectattr('_cuid','equalto',v.version)|map(attribute='root_dir')|first }}');">Console</a>
+                </div>
+                <br>
+
             </div>
             <div class="mui-row mui-col-xs-10">
                 <div class="mui-col-xs-12 mui--text-dark-secondary mui--text-caption">Version</div>

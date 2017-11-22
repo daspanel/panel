@@ -146,6 +146,13 @@
 									</div>
 								</div>
 								<div class="cssui-stats cssui-usercard__stats-item">
+									<i onclick="window.open('https://_ds.{{ r.urlprefix }}.sites.{{ config.DASPANEL.sys.hostname }}/shell/?arg={{ r._cuid }}&arg={{ r.versions|selectattr('_cuid','equalto',r.active_version)|map(attribute='directory')|first }}{{ r.versions|selectattr('_cuid','equalto',r.active_version)|map(attribute='root_dir')|first }}');" class="cssui-icon icon-sitecontent"></i>
+									<div class="cssui-stats__info cssui-usercard__stats-info">
+										<span class="cssui-stats__name cssui-usercard__stats-name">Console</span>
+									</div>
+								</div>
+
+								<div class="cssui-stats cssui-usercard__stats-item">
 									<i onclick="window.location='{{ url_for('sites.content_fromhttp', recid=r._cuid) }}';" class="cssui-icon icon-sitecontent"></i>
 									<div class="cssui-stats__info cssui-usercard__stats-info">
 										<span class="cssui-stats__name cssui-usercard__stats-name">Content</span>
@@ -160,7 +167,7 @@
 								<div class="cssui-stats cssui-usercard__stats-item">
 									<i  onclick="window.location='{{ url_for('sites.site_redirects', recid=r._cuid) }}';"class="cssui-icon icon-angular"></i>
 									<div class="cssui-stats__info cssui-usercard__stats-info">
-										<span class="cssui-stats__name cssui-usercard__stats-name">Redirects</span>
+										<span class="cssui-stats__name cssui-usercard__stats-name">Domain Mappings</span>
 									</div>
 								</div>
 								<div class="cssui-stats cssui-usercard__stats-item">
@@ -202,7 +209,7 @@
 
 						<!-- Redirects slide -->
 						<div class="cssui-slider__slide">
-							<h4 class="cssui-usercard__title">Redirects</h4>
+							<h4 class="cssui-usercard__title">Domain Mappings</h4>
                             <div class="mui-container">
                                 <div class="mui-row">
                                     <div class="mui-col-xs-12 mui--text-center">

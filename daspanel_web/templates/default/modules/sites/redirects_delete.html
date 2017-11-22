@@ -21,7 +21,7 @@
         <a id="appbar-more-vert" href="{{ url_for('sites.site_redirects', recid=site._cuid) }}" class="sidedrawer-toggle mui--hidden-xs mui--hidden-sm">
             <i class="material-icons mui--text-title">arrow_back</i>
         </a>
-        <span class="mui--text-title">Delete Redirect</span>
+        <span class="mui--text-title">Delete Domain Mapping</span>
       </td>
     </tr>
   </table>
@@ -35,7 +35,7 @@
     <div class="mui--text-dark-secondary">{{ site.sitedescription }}</div>
     <br>
     <form method="post" action="{{ url_for('sites.site_redirects_delete', recid=site._cuid, redirectid=redirectid) }}" role="form">
-    <legend>Delete site redirect</legend>
+    <legend>Delete domain mapping</legend>
     {{ form.csrf_token }}
     <div class="mui-select">
         {{ form.confirm(placeholder=form.confirm.description, spellcheck="false") }}
@@ -45,7 +45,7 @@
         {%- endif %}
     </div>
 
-    <button type="submit" class="mui-btn mui-btn--primary">Delete redirect</button>
+    <button type="submit" class="mui-btn mui-btn--primary">Delete domain mapping</button>
     </form>
 </div>
 {% endblock %}
