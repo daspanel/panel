@@ -146,7 +146,7 @@
 									</div>
 								</div>
 								<div class="cssui-stats cssui-usercard__stats-item">
-									<i onclick="window.open('https://_ds.{{ r.urlprefix }}.sites.{{ config.DASPANEL.sys.hostname }}/shell/?arg={{ r._cuid }}&arg={{ r.versions|selectattr('_cuid','equalto',r.active_version)|map(attribute='directory')|first }}{{ r.versions|selectattr('_cuid','equalto',r.active_version)|map(attribute='root_dir')|first }}');" class="cssui-icon icon-sitecontent"></i>
+									<i onclick="window.open('https://_ds.{{ r.urlprefix }}.sites.{{ config.DASPANEL.sys.hostname }}/shell/?arg={{ r._cuid }}&arg={{ r.versions|selectattr('_cuid','equalto',r.active_version)|map(attribute='directory')|first }}');" class="cssui-icon icon-sitecontent"></i>
 									<div class="cssui-stats__info cssui-usercard__stats-info">
 										<span class="cssui-stats__name cssui-usercard__stats-name">Console</span>
 									</div>

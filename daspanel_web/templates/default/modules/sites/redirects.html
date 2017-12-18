@@ -63,7 +63,7 @@
                 </div>
                 <br>
                 <div class="mui-col-xs-12 mui--text-dark mui--text-menu mui--text-center">
-                    <a href="" onclick="window.open('https://_ds.{{ v.hosturl }}.{{ v.domain }}/shell/?arg={{ site._cuid }}&arg={{ site.versions|selectattr('_cuid','equalto',v.version)|map(attribute='directory')|first }}{{ site.versions|selectattr('_cuid','equalto',v.version)|map(attribute='root_dir')|first }}');">Console</a>
+                    <a href="" onclick="window.open('https://_ds.{{ v.hosturl }}.{{ v.domain }}/shell/?arg={{ site._cuid }}&arg={{ site.versions|selectattr('_cuid','equalto',v.version)|map(attribute='directory')|first }}');">Console</a>
                 </div>
                 <br>
 
