@@ -14,7 +14,7 @@ from lib import template_helpers
 from lib.util import generate_password_hash
 from meta import mail, db, lm
 from modules.auth.models import User
-from modules import content, auth, sites, module1, services
+from modules import content, auth, sites, module1, services, system
 
 # suppress cssutils warning messages
 cssutils.log.setLevel(logging.CRITICAL)
@@ -87,6 +87,7 @@ def create_app(extra_config=None):
     app.register_blueprint(sites.bp, url_prefix='/sites')
     app.register_blueprint(module1.bp, url_prefix='/module1')
     app.register_blueprint(services.bp, url_prefix='/services')
+    app.register_blueprint(system.bp, url_prefix='/system')
 
     return app
 

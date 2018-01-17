@@ -1,0 +1,52 @@
+{% extends "/shared/base-layout.html" %}
+
+
+{% block BODY %}
+<header id="header">
+  <nav id="appbar" class="mui-container-fluid mui-appbar mui--bg-primary">
+  <table width="100%" cellspacing="0">
+    <tr class="mui--appbar-height">
+      <td>
+        <a id="appbar-sidenav-show" class="sidedrawer-toggle mui--visible-xs-inline-block mui--visible-sm-inline-block js-show-sidedrawer">☰</a>
+        <a id="appbar-sidenav-hide" class="sidedrawer-toggle mui--hidden-xs mui--hidden-sm js-hide-sidedrawer">☰</a>
+        <span class="mui--text-title">System</span>
+      </td>
+    </tr>
+  </table>
+</nav>
+</header>
+
+<div id="content-wrapper">
+    <div class="mui--appbar-height"></div>
+    <div class="mui-container-fluid">
+        <div class="mui-row mui--z1">
+            <!-- BOF Services credentials -->
+            <div class="mui-col-xs-12 mui-col-sm-12 mui-col-md-6 mui-col-lg-6 mui-col-xl-4">
+  	            <article class="cssui-usercard cssui-usercard_skin--material cssui-usercard_skin--material_mod--indigo">
+                    <div class="cssui-usercard__body">
+                        <header class="cssui-usercard__header">
+				            <img src="/static/images/file-manager.png" class="cssui-usercard__avatar" alt="Avatar">
+                            <div class="cssui-usercard__header-info truncate">
+                                <h3 title="Database Manager" class="cssui-usercard__name">Services Users</h3>
+                                <span title="Adminer" class="cssui-usercard__post">Manage services users</span>
+                            </div>
+                        </header>
+                        <div class="cssui-usercard__content">
+                        </div>
+                    </div>
+                    <footer class="cssui-usercard__footer">
+                        <div>
+                            <button onclick="window.location='{{ url_for('system.services_users') }}';" class="mui-btn mui-btn--small mui-btn--primary mui-btn--flat">Show</button>
+                        </div>
+                    </footer>
+	            </article>        
+            </div>
+            <!-- EOF Services credentials -->
+
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

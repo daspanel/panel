@@ -1,0 +1,102 @@
+{% extends "/shared/modal-list-layout.html" %}
+
+{% block HEADERTAGS %}
+{{ super() }} 
+<style>
+  .mui-panel {
+    max-width: 500px;
+  }
+</style>
+{% endblock %}
+
+{% block LISTNAVBAR %}
+  <nav id="appbar" class="mui-container-fluid mui-appbar mui--bg-primary">
+  <table width="100%" cellspacing="0">
+    <tr class="mui--appbar-height">
+      <td>
+        <a id="appbar-more-vert" href="{{ url_for('content.home') }}" class="sidedrawer-toggle mui--visible-xs-inline-block mui--visible-sm-inline-block">
+            <i class="material-icons mui--text-title">arrow_back</i>
+        </a>
+        <a id="appbar-more-vert" href="{{ url_for('content.home') }}" class="sidedrawer-toggle mui--hidden-xs mui--hidden-sm">
+            <i class="material-icons mui--text-title">arrow_back</i>
+        </a>
+        <span class="mui--text-title">Services Users</span>
+      </td>
+    </tr>
+  </table>
+</nav>
+{% endblock %}
+
+{% block BODY %}
+
+    <div id="content-wrapper">
+      <div class="mui--appbar-height"></div>
+      <div class="mui-container-fluid">
+        <table class="mui-table mui-table--bordered">
+            <thead>
+                <tr>
+                    <th>Service</th>
+                    <th>Credentials</th>
+                </tr>
+                </thead>
+            <tbody>
+                <tr>
+                    <td>Mail Catcher</td>
+                    <td>
+                        <b>Url:</b> https://mail.svc.{{ cfg["sys"]["hostname"] }}</br>
+                        <b>User:</b> {{ cfg["smtp"]["user"] }}</br>
+                        <b>Password:</b> {{ cfg["smtp"]["password"] }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Database Management</td>
+                    <td>
+                        <b>Url:</b> https://adminer.svc.{{ cfg["sys"]["hostname"] }}?server={{ cfg["mysql"]["server"] }}</br>
+                        <b>MySql Host:</b> {{ cfg["mysql"]["server"] }}</br>
+                        <b>User:</b> {{ cfg["mysql"]["user"] }}</br>
+                        <b>Password:</b> {{ cfg["mysql"]["password"] }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>File Manager</td>
+                    <td>
+                        <b>Url:</b> https://fm.svc.{{ cfg["sys"]["hostname"] }}</br>
+                        <b>User:</b> {{ cfg["filemanager"]["user"] }}</br>
+                        <b>Password:</b> {{ cfg["filemanager"]["password"] }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Console</td>
+                    <td>
+                        <b>User:</b> {{ cfg["console"]["user"] }}</br>
+                        <b>Password:</b> {{ cfg["console"]["password"] }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>S3 file manager</td>
+                    <td>
+                        <b>Url:</b> https://s3.svc.{{ cfg["sys"]["hostname"] }}</br>
+                        <b>Access Key:</b> {{ cfg["s3"]["access_key"] }}</br>
+                        <b>Secret Key:</b> {{ cfg["s3"]["secret_key"] }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>S3 Endpoint</td>
+                    <td>
+                        <b>Url:</b> https://s3.svc.{{ cfg["sys"]["hostname"] }}</br>
+                        <b>Access Key:</b> {{ cfg["s3"]["access_key"] }}</br>
+                        <b>Secret Key:</b> {{ cfg["s3"]["secret_key"] }}</br>
+                        <b>Region:</b> {{ cfg["s3"]["region"] }}</br>
+                        <b>Bucket:</b> {{ env["DASPANEL_SYS_UUID"] }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+      </div>
+</div>
+
+{% endblock %}
+
+
+
