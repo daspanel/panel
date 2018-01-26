@@ -110,14 +110,23 @@
                                     </div>
                                 </div>
                                 <br>
-                                <div class="mui-row">
+                                <!-- <div class="mui-row">
                                     <div class="mui-col-xs-12">
                                         <div class="mui--text-dark-secondary mui--text-caption">Active Directory</div>
                                         <div title="{{ r.active_dir }}" class="mui--text-dark mui--text-body1 truncate">
                                             {{ r.versions|selectattr('_cuid','equalto',r.active_version)|map(attribute='directory')|first }}
                                         </div>
                                     </div>
+                                </div> -->
+                                <div class="mui-row">
+                                    <div class="mui-col-xs-12">
+                                        <div class="mui--text-dark-secondary mui--text-caption">Url</div>
+                                        <div title="https://{{ r.urlprefix }}.sites.{{ config.DASPANEL.sys.hostname }}" class="mui--text-dark mui--text-body1 truncate">
+                                            https://{{ r.urlprefix }}.sites.{{ config.DASPANEL.sys.hostname }}
+                                        </div>
+                                    </div>
                                 </div>
+
                                 <div class="mui-divider"></div>
                                 <br>
 
